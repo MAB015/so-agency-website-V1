@@ -24,18 +24,20 @@ export function Hero() {
           <span>Mission Control for Startups</span>
         </div>
 
-        {/* Main headline */}
-        <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance mb-6 opacity-0">
-          <span className="text-primary">Design.</span>{" "}
-          <span className="text-foreground">Build.</span>{" "}
-          <span className="text-accent">Launch.</span>
-        </h1>
+        {/* Slogan — the brand statement */}
+        <div className="hero-title mb-4 opacity-0">
+          <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none">
+            <span className="text-[#3B9EFF]">Design.</span>{" "}
+            <span className="text-foreground">Build.</span>{" "}
+            <span className="text-[#E8714A]">Launch.</span>
+          </p>
+        </div>
 
-        {/* Subheadline */}
-        <p className="hero-subtitle text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty opacity-0">
-          Strategic branding, powerful web development, and growth-focused marketing. 
-          Everything your startup needs to stand out and scale.
-        </p>
+        {/* Supporting headline */}
+        <h1 className="hero-subtitle text-lg sm:text-xl md:text-2xl font-medium text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty opacity-0">
+          Strategic branding, powerful web development, and growth-focused marketing —
+          everything your startup needs to stand out and scale.
+        </h1>
 
         {/* CTAs */}
         <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0">
