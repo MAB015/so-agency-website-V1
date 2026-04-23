@@ -10,14 +10,16 @@ const services = [
     description: "Custom, performance-driven sites built on modern stacks. We engineer high-performance platforms that keep users engaged.",
     color: "text-cyan-400",
     bgColor: "bg-cyan-400/10",
+    borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-cyan-400/30",
     size: "col-span-1",
   },
   {
     icon: Palette,
     title: "UX/UI Design",
     description: "Intuitive, conversion-focused interfaces. Every pixel serves a purpose in guiding the user's journey.",
-    color: "text-orange-400",
-    bgColor: "bg-orange-400/10",
+    color: "text-[#FEC700]",
+    bgColor: "bg-[#FEC700]/10",
+    borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-[#FEC700]/30",
     size: "col-span-1",
   },
   {
@@ -26,6 +28,7 @@ const services = [
     description: "End-to-end online store solutions designed for frictionless transactions and maximum conversion.",
     color: "text-foreground",
     bgColor: "bg-foreground/10",
+    borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-white/20",
     size: "col-span-1",
   },
   {
@@ -34,14 +37,16 @@ const services = [
     description: "Full visual identity systems. We forge a unique signature that resonates across your industry, establishing undeniable authority.",
     color: "text-teal-400",
     bgColor: "bg-teal-400/10",
+    borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-teal-400/30",
     size: "md:col-span-2",
   },
   {
     icon: Megaphone,
     title: "Social Media",
     description: "Turning engagement into leads through calculated content strategies and data-driven campaigns.",
-    color: "text-orange-400",
-    bgColor: "bg-orange-400/10",
+    color: "text-[#FEC700]",
+    bgColor: "bg-[#FEC700]/10",
+    borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-[#FEC700]/30",
     size: "col-span-1",
   },
   {
@@ -50,6 +55,7 @@ const services = [
     description: "Streamlining operations with intelligent tools. Next-gen tech currently in development.",
     color: "text-muted-foreground",
     bgColor: "bg-muted/50",
+    borderGlow: "",
     size: "col-span-1",
     badge: "Standby",
     disabled: true,
@@ -77,10 +83,10 @@ export function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className={`${service.size} relative group rounded-2xl border border-border/50 bg-card/30 p-6 transition-all duration-300 ${
+              className={`${service.size} relative group rounded-2xl border border-border/50 bg-card/30 p-6 transition-all duration-500 card-shine ${
                 service.disabled 
                   ? "opacity-60" 
-                  : "hover:border-border hover:bg-card/50"
+                  : `hover:border-border card-hover-3d ${service.borderGlow}`
               }`}
             >
               {/* Badge */}
@@ -91,7 +97,7 @@ export function Services() {
               )}
 
               {/* Icon */}
-              <div className={`size-12 rounded-xl ${service.bgColor} flex items-center justify-center mb-6`}>
+              <div className={`size-12 rounded-xl ${service.bgColor} flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110`}>
                 <service.icon className={`size-6 ${service.color}`} />
               </div>
 

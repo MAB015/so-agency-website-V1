@@ -1,7 +1,7 @@
 "use client"
 
 import { Search, Target, Rocket, TrendingUp } from "lucide-react"
-import { useStaggerChildren } from "@/hooks/use-gsap-animations"
+import { useTimelineProgress } from "@/hooks/use-gsap-animations"
 
 const steps = [
   {
@@ -9,7 +9,7 @@ const steps = [
     number: "01",
     title: "Discovery",
     subtitle: "Pre-Flight Check",
-    description: "We dive deep into your startup, understanding your goals, audience, and competitive landscape.",
+    description: "We dive deep into your business, understanding your goals, audience, and competitive landscape.",
   },
   {
     icon: Target,
@@ -23,19 +23,19 @@ const steps = [
     number: "03",
     title: "Launch",
     subtitle: "Liftoff",
-    description: "We execute with precision, delivering high-quality work on startup timelines.",
+    description: "We execute with precision, delivering high-quality work on your timelines.",
   },
   {
     icon: TrendingUp,
     number: "04",
     title: "Growth",
     subtitle: "Orbit",
-    description: "Ongoing support and optimization to keep your startup scaling and thriving.",
+    description: "Ongoing support and optimization to keep your business scaling and thriving.",
   },
 ]
 
 export function Process() {
-  const stepsRef = useStaggerChildren<HTMLDivElement>(0.15)
+  const stepsRef = useTimelineProgress<HTMLDivElement>()
 
   return (
     <section id="process" className="py-24 px-4 sm:px-6 bg-secondary/30">
@@ -46,30 +46,30 @@ export function Process() {
             How We Work
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A proven process that takes you from idea to impact. Clear, collaborative, and built for startup speed.
+            A proven process that takes you from idea to impact. Clear, collaborative, and built for speed.
           </p>
         </div>
 
         {/* Process steps */}
         <div ref={stepsRef} className="grid md:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <div key={step.number} className="relative">
+            <div key={step.number} className="timeline-item relative group">
               {/* Connector line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-1/2 w-full h-px bg-gradient-to-r from-primary/50 to-primary/10" />
+                <div className="timeline-line hidden md:block absolute top-8 left-1/2 w-full h-px bg-gradient-to-r from-primary/50 to-primary/10 origin-left" />
               )}
               
               <div className="relative z-10 flex flex-col items-center text-center">
-                {/* Icon container */}
-                <div className="size-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center mb-4">
-                  <step.icon className="size-7 text-primary" />
+                {/* Icon container with hover effect */}
+                <div className="size-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:shadow-[0_0_30px_-5px] group-hover:shadow-primary/40">
+                  <step.icon className="size-7 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 
                 {/* Number badge */}
                 <span className="text-xs font-mono text-primary mb-2">{step.number}</span>
                 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-foreground mb-1">{step.title}</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-1 transition-colors group-hover:text-primary">{step.title}</h3>
                 
                 {/* Subtitle */}
                 <span className="text-xs text-primary/80 uppercase tracking-wider mb-3">{step.subtitle}</span>
