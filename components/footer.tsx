@@ -13,7 +13,7 @@ const footerLinks = [
     title: "Company",
     links: [
       { label: "Process", href: "#process" },
-      { label: "Why Us", href: "#benefits" },
+      { label: "Team", href: "#team" },
       { label: "Contact", href: "#contact" },
     ],
   },
@@ -36,6 +36,7 @@ export function Footer() {
               <Rocket className="size-6 text-primary" />
               <span className="font-bold text-lg">SO Agency</span>
             </a>
+            <p className="text-lg font-semibold text-primary mb-2">Design. Build. Launch.</p>
             <p className="text-sm text-muted-foreground max-w-sm mb-6">
               Mission control for ambitious startups. We help you launch and grow with strategic branding, web development, and marketing.
             </p>

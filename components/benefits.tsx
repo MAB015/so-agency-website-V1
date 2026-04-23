@@ -1,4 +1,7 @@
+"use client"
+
 import { Zap, DollarSign, Users, Layers } from "lucide-react"
+import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 
 const benefits = [
   {
@@ -24,6 +27,8 @@ const benefits = [
 ]
 
 export function Benefits() {
+  const gridRef = useStaggerChildren<HTMLDivElement>(0.1)
+
   return (
     <section id="benefits" className="py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
@@ -38,7 +43,7 @@ export function Benefits() {
         </div>
 
         {/* Benefits grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit) => (
             <div 
               key={benefit.title} 

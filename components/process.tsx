@@ -1,4 +1,7 @@
+"use client"
+
 import { Search, Target, Rocket, TrendingUp } from "lucide-react"
+import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 
 const steps = [
   {
@@ -32,6 +35,8 @@ const steps = [
 ]
 
 export function Process() {
+  const stepsRef = useStaggerChildren<HTMLDivElement>(0.15)
+
   return (
     <section id="process" className="py-24 px-4 sm:px-6 bg-secondary/30">
       <div className="max-w-6xl mx-auto">
@@ -46,7 +51,7 @@ export function Process() {
         </div>
 
         {/* Process steps */}
-        <div className="grid md:grid-cols-4 gap-8">
+        <div ref={stepsRef} className="grid md:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <div key={step.number} className="relative">
               {/* Connector line */}

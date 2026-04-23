@@ -1,68 +1,108 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Palette, Code, TrendingUp } from "lucide-react"
+"use client"
+
+import { Code, Palette, ShoppingCart, Fingerprint, Megaphone, Bot } from "lucide-react"
+import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 
 const services = [
   {
-    icon: Palette,
-    title: "Branding",
-    description: "Strategic brand identity that captures your vision. Logo design, visual systems, and brand guidelines that make your startup memorable.",
-    features: ["Logo Design", "Visual Identity", "Brand Guidelines", "Pitch Decks"],
-  },
-  {
     icon: Code,
-    title: "Web Development",
-    description: "Fast, modern websites and applications built to convert. From landing pages to full-stack platforms, we build what you need to grow.",
-    features: ["Landing Pages", "Web Applications", "E-commerce", "Mobile-First"],
+    title: "Web Design & Dev",
+    description: "Custom, performance-driven sites built on modern stacks. We engineer high-performance platforms that keep users engaged.",
+    color: "text-cyan-400",
+    bgColor: "bg-cyan-400/10",
+    size: "col-span-1",
   },
   {
-    icon: TrendingUp,
-    title: "Marketing",
-    description: "Data-driven marketing strategies that fuel growth. We help you reach the right audience and turn visitors into loyal customers.",
-    features: ["Social Media", "Content Strategy", "SEO & SEM", "Analytics"],
+    icon: Palette,
+    title: "UX/UI Design",
+    description: "Intuitive, conversion-focused interfaces. Every pixel serves a purpose in guiding the user's journey.",
+    color: "text-orange-400",
+    bgColor: "bg-orange-400/10",
+    size: "col-span-1",
+  },
+  {
+    icon: ShoppingCart,
+    title: "E-Commerce",
+    description: "End-to-end online store solutions designed for frictionless transactions and maximum conversion.",
+    color: "text-foreground",
+    bgColor: "bg-foreground/10",
+    size: "col-span-1",
+  },
+  {
+    icon: Fingerprint,
+    title: "Branding & Identity",
+    description: "Full visual identity systems. We forge a unique signature that resonates across your industry, establishing undeniable authority.",
+    color: "text-teal-400",
+    bgColor: "bg-teal-400/10",
+    size: "md:col-span-2",
+  },
+  {
+    icon: Megaphone,
+    title: "Social Media",
+    description: "Turning engagement into leads through calculated content strategies and data-driven campaigns.",
+    color: "text-orange-400",
+    bgColor: "bg-orange-400/10",
+    size: "col-span-1",
+  },
+  {
+    icon: Bot,
+    title: "AI Automation",
+    description: "Streamlining operations with intelligent tools. Next-gen tech currently in development.",
+    color: "text-muted-foreground",
+    bgColor: "bg-muted/50",
+    size: "col-span-1",
+    badge: "Standby",
+    disabled: true,
   },
 ]
 
 export function Services() {
+  const gridRef = useStaggerChildren<HTMLDivElement>(0.1)
+
   return (
     <section id="services" className="py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Everything You Need to Launch
+            Core Systems
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            End-to-end services designed for startups. We handle the execution so you can focus on your vision.
+            Specialized services designed to ensure total business success across all digital channels.
           </p>
         </div>
 
-        {/* Service cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Bento grid */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {services.map((service) => (
-            <Card 
-              key={service.title} 
-              className="bg-card/50 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+            <div
+              key={service.title}
+              className={`${service.size} relative group rounded-2xl border border-border/50 bg-card/30 p-6 transition-all duration-300 ${
+                service.disabled 
+                  ? "opacity-60" 
+                  : "hover:border-border hover:bg-card/50"
+              }`}
             >
-              <CardHeader>
-                <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <service.icon className="size-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl">{service.title}</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  {service.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="size-1.5 rounded-full bg-primary" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+              {/* Badge */}
+              {service.badge && (
+                <span className="absolute top-6 right-6 text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                  {service.badge}
+                </span>
+              )}
+
+              {/* Icon */}
+              <div className={`size-12 rounded-xl ${service.bgColor} flex items-center justify-center mb-6`}>
+                <service.icon className={`size-6 ${service.color}`} />
+              </div>
+
+              {/* Content */}
+              <h3 className={`text-xl font-semibold mb-3 ${service.disabled ? "text-muted-foreground" : "text-foreground"}`}>
+                {service.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {service.description}
+              </p>
+            </div>
           ))}
         </div>
       </div>
