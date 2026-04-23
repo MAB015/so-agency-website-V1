@@ -42,7 +42,7 @@ export function Process() {
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-bold text-foreground mb-4">
             How We Work
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

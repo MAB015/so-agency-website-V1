@@ -25,16 +25,16 @@ export function Hero() {
         </div>
 
         {/* Main headline */}
-        <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance mb-6 opacity-0">
+        <h1 className="hero-title font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance mb-4 opacity-0">
           Your vision, our{" "}
           <span className="text-gradient-animated">stellar</span> design
         </h1>
 
         {/* Slogan */}
         <div className="hero-subtitle mb-6 opacity-0">
-          <p className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-muted-foreground">
+          <p className="font-[family-name:var(--font-display)] text-xl sm:text-2xl md:text-3xl font-normal tracking-widest uppercase">
             <span className="text-[#3B9EFF]">Design.</span>{" "}
-            <span className="text-foreground">Build.</span>{" "}
+            <span className="text-foreground/70">Build.</span>{" "}
             <span className="text-[#FEC700]">Launch.</span>
           </p>
         </div>

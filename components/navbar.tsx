@@ -59,8 +59,8 @@ export function Navbar() {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <div className="hidden md:block animated-border rounded-md">
+            <Button asChild className="bg-background text-foreground hover:bg-background/90 text-sm font-medium">
               <a href="#contact">Get Started</a>
             </Button>
           </div>

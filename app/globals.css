@@ -89,6 +89,7 @@
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-display: var(--font-display, 'Audiowide', sans-serif);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -186,25 +187,15 @@
 .animated-border {
   position: relative;
   isolation: isolate;
-}
-
-.animated-border::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
+  border-radius: 0.5rem;
+  padding: 2px;
   background: conic-gradient(from var(--angle), #FEC700, #3B9EFF, #FEC700);
-  border-radius: inherit;
   animation: border-rotate 3s linear infinite;
-  z-index: -1;
 }
 
-.animated-border::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: oklch(0.08 0.01 270);
-  border-radius: inherit;
-  z-index: -1;
+.animated-border > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Blink/pulse animation for icons */

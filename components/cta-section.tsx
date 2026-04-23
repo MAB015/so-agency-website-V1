@@ -25,7 +25,7 @@ export function CTASection() {
             </div>
 
             {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
               Ready to Launch Your Digital Presence?
             </h2>
 
@@ -36,12 +36,14 @@ export function CTASection() {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 glow-hover transition-all text-base px-8">
-                <a href="mailto:hello@soagency.dev">
-                  Let&apos;s Make It Happen
-                  <ArrowRight className="size-4 ml-2" />
-                </a>
-              </Button>
+              <div className="animated-border rounded-lg">
+                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all text-base px-8">
+                  <a href="mailto:hello@soagency.dev">
+                    Let&apos;s Make It Happen
+                    <ArrowRight className="size-4 ml-2" />
+                  </a>
+                </Button>
+              </div>
               <Button asChild variant="outline" size="lg" className="text-base px-8">
                 <a href="mailto:hello@soagency.dev">
                   Send a Message
