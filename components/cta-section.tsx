@@ -26,19 +26,19 @@ export function CTASection() {
 
             {/* Headline */}
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
-              Ready to Launch?
+              Ready to Launch Your Digital Presence?
             </h2>
 
             {/* Subtext */}
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
-              Let&apos;s talk about your startup and how we can help you reach new heights. Book a free discovery call today.
+              Let&apos;s talk about your project and how we can help you reach new heights. Book a free diagnostic call today.
             </p>
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 glow-hover transition-all text-base px-8">
                 <a href="mailto:hello@soagency.dev">
-                  Book a Call
+                  Let&apos;s Make It Happen
                   <ArrowRight className="size-4 ml-2" />
                 </a>
               </Button>

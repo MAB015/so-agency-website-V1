@@ -6,18 +6,18 @@ import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 const benefits = [
   {
     icon: Users,
-    title: "Startup-Focused",
-    description: "We understand the unique challenges of early-stage companies. Our approach is tailored to your stage and budget.",
+    title: "Partner-Driven",
+    description: "We work alongside you, not just for you. Your success is our mission — we are invested in your growth.",
   },
   {
     icon: Zap,
     title: "Fast Delivery",
-    description: "Startup speed without compromising quality. We move as fast as you need to hit your milestones.",
+    description: "Quality at speed. We move efficiently to hit your milestones without compromising on results.",
   },
   {
     icon: DollarSign,
-    title: "Affordable Pricing",
-    description: "Premium quality at startup-friendly rates. Flexible packages designed for growing companies.",
+    title: "Flexible Pricing",
+    description: "Premium quality at accessible rates. Packages designed to fit businesses of all sizes.",
   },
   {
     icon: Layers,
@@ -35,7 +35,7 @@ export function Benefits() {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Why Startups Choose Us
+            Why Clients Choose Us
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We are not just another agency. We are your launch partners, invested in your success.

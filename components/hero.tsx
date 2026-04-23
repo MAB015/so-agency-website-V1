@@ -21,29 +21,35 @@ export function Hero() {
         {/* Badge */}
         <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm mb-8 opacity-0">
           <Sparkles className="size-4" />
-          <span>Mission Control for Startups</span>
+          <span>Your Digital Launch Partner</span>
         </div>
 
-        {/* Slogan — the brand statement */}
-        <div className="hero-title mb-4 opacity-0">
-          <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none">
+        {/* Main headline */}
+        <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance mb-6 opacity-0">
+          Your vision, our{" "}
+          <span className="text-primary">stellar</span> design
+        </h1>
+
+        {/* Slogan */}
+        <div className="hero-subtitle mb-6 opacity-0">
+          <p className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
             <span className="text-[#3B9EFF]">Design.</span>{" "}
             <span className="text-foreground">Build.</span>{" "}
-            <span className="text-[#E8714A]">Launch.</span>
+            <span className="text-[#FEC700]">Launch.</span>
           </p>
         </div>
 
-        {/* Supporting headline */}
-        <h1 className="hero-subtitle text-lg sm:text-xl md:text-2xl font-medium text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty opacity-0">
-          Strategic branding, powerful web development, and growth-focused marketing —
-          everything your startup needs to stand out and scale.
-        </h1>
+        {/* Description */}
+        <p className="hero-description text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty opacity-0">
+          We transform your business ideas into high-performing digital presences — 
+          from stunning websites to complete brand identities.
+        </p>
 
         {/* CTAs */}
         <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0">
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 glow-hover transition-all text-base px-8">
             <a href="#contact">
-              Get Started
+              Book Your Free Diagnostic
               <ArrowRight className="size-4 ml-2" />
             </a>
           </Button>
@@ -54,11 +60,11 @@ export function Hero() {
 
         {/* Trust indicators */}
         <div className="hero-trust mt-16 pt-8 border-t border-border/50 opacity-0">
-          <p className="text-sm text-muted-foreground mb-4">Trusted by ambitious startups</p>
+          <p className="text-sm text-muted-foreground mb-4">Trusted by businesses worldwide</p>
           <div className="flex items-center justify-center gap-8 opacity-50">
-            <span className="text-lg font-semibold text-muted-foreground">startup.</span>
+            <span className="text-lg font-semibold text-muted-foreground">brand.</span>
             <span className="text-lg font-semibold text-muted-foreground">techco</span>
-            <span className="text-lg font-semibold text-muted-foreground">venture+</span>
+            <span className="text-lg font-semibold text-muted-foreground">growth+</span>
           </div>
         </div>
       </div>

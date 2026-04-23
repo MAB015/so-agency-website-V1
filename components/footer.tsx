@@ -1,12 +1,12 @@
-import { Rocket } from "lucide-react"
+import Image from "next/image"
 
 const footerLinks = [
   {
     title: "Services",
     links: [
-      { label: "Branding", href: "#services" },
-      { label: "Web Development", href: "#services" },
-      { label: "Marketing", href: "#services" },
+      { label: "Web Design & Dev", href: "#services" },
+      { label: "Branding & Identity", href: "#services" },
+      { label: "E-Commerce", href: "#services" },
     ],
   },
   {
@@ -32,17 +32,22 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Logo and description */}
           <div className="md:col-span-2">
-            <a href="#" className="flex items-center gap-2 text-foreground mb-4">
-              <Rocket className="size-6 text-primary" />
-              <span className="font-bold text-lg">SO Agency</span>
+            <a href="#" className="flex items-center gap-3 text-foreground mb-4">
+              <Image 
+                src="/logo.png" 
+                alt="SO Agency" 
+                width={120} 
+                height={45}
+                className="h-10 w-auto"
+              />
             </a>
             <p className="text-xl font-black tracking-tight mb-2">
               <span className="text-[#3B9EFF]">Design.</span>{" "}
               <span className="text-foreground">Build.</span>{" "}
-              <span className="text-[#E8714A]">Launch.</span>
+              <span className="text-[#FEC700]">Launch.</span>
             </p>
             <p className="text-sm text-muted-foreground max-w-sm mb-6">
-              Mission control for ambitious startups. We help you launch and grow with strategic branding, web development, and marketing.
+              Your digital launch partner. We help businesses launch and grow with strategic branding, web development, and marketing.
             </p>
             {/* Social links */}
             <div className="flex items-center gap-4">

@@ -10,8 +10,8 @@ const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200"
 const _sourceSerif_4 = V0_Font_Source_Serif_4({ subsets: ['latin'], weight: ["200","300","400","500","600","700","800","900"] })
 
 export const metadata: Metadata = {
-  title: 'SO Agency | Launch Your Startup',
-  description: 'We help startups launch and grow with strategic branding, web development, and marketing. Your mission control for digital success.',
+  title: 'SO Agency | Design. Build. Launch.',
+  description: 'We transform your business ideas into high-performing digital presences — from stunning websites to complete brand identities. Your digital launch partner.',
   generator: 'v0.app',
   icons: {
     icon: [

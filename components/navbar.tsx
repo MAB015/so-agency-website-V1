@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Rocket } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -35,8 +36,13 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 text-foreground">
-            <Rocket className="size-6 text-primary" />
-            <span className="font-bold text-lg">SO Agency</span>
+            <Image 
+              src="/logo.png" 
+              alt="SO Agency" 
+              width={100} 
+              height={38}
+              className="h-8 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation */}
@@ -55,7 +61,7 @@ export function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <a href="#contact">Launch Your Startup</a>
+              <a href="#contact">Get Started</a>
             </Button>
           </div>
 
@@ -85,7 +91,7 @@ export function Navbar() {
               ))}
               <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 w-full mt-2">
                 <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  Launch Your Startup
+                  Get Started
                 </a>
               </Button>
             </nav>
