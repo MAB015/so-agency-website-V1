@@ -6,11 +6,15 @@ import gsap from "gsap"
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const rocketRef = useRef<HTMLDivElement>(null)
+  const trailRef = useRef<HTMLDivElement>(null)
   const [isHovering, setIsHovering] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [scrollDir, setScrollDir] = useState<"up" | "down" | null>(null)
   const lastPosition = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
+  const lastScrollY = useRef(0)
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -63,6 +67,56 @@ export function CustomCursor() {
     const handleMouseDown = () => setIsClicking(true)
     const handleMouseUp = () => setIsClicking(false)
 
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const delta = currentScrollY - lastScrollY.current
+      const dir = delta > 0 ? "down" : "up"
+      lastScrollY.current = currentScrollY
+
+      setScrollDir(dir)
+
+      // Tilt rocket on scroll
+      if (rocket) {
+        gsap.to(rocket, {
+          y: dir === "down" ? -6 : 6,
+          scale: 1.3,
+          filter: dir === "down"
+            ? "drop-shadow(0 0 8px #FEC700) drop-shadow(0 4px 12px #FF6B35)"
+            : "drop-shadow(0 0 8px #FEC700) drop-shadow(0 -4px 12px #FF6B35)",
+          duration: 0.15,
+          ease: "power2.out"
+        })
+        if (trailRef.current) {
+          gsap.to(trailRef.current, {
+            opacity: 0.9,
+            scaleY: dir === "down" ? 1 : -1,
+            duration: 0.15,
+          })
+        }
+      }
+
+      // Clear direction after scroll stops
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current)
+      scrollTimeout.current = setTimeout(() => {
+        setScrollDir(null)
+        if (rocket) {
+          gsap.to(rocket, {
+            y: 0,
+            scale: 1,
+            filter: "none",
+            duration: 0.4,
+            ease: "elastic.out(1, 0.5)"
+          })
+        }
+        if (trailRef.current) {
+          gsap.to(trailRef.current, {
+            opacity: 0,
+            duration: 0.3,
+          })
+        }
+      }, 150)
+    }
+
     // Detect hoverable elements
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement
@@ -76,6 +130,7 @@ export function CustomCursor() {
     document.addEventListener("mouseleave", handleMouseLeave)
     document.addEventListener("mousedown", handleMouseDown)
     document.addEventListener("mouseup", handleMouseUp)
+    window.addEventListener("scroll", handleScroll, { passive: true })
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove)
@@ -84,6 +139,8 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", handleMouseLeave)
       document.removeEventListener("mousedown", handleMouseDown)
       document.removeEventListener("mouseup", handleMouseUp)
+      window.removeEventListener("scroll", handleScroll)
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current)
     }
   }, [isVisible])
 
@@ -111,11 +168,34 @@ export function CustomCursor() {
         }`}
         style={{ left: 0, top: 0 }}
       >
+        {/* Scroll flame trail - appears below rocket when scrolling down, above when scrolling up */}
+        <div
+          ref={trailRef}
+          className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+          style={{
+            opacity: 0,
+            top: scrollDir === "up" ? "auto" : "100%",
+            bottom: scrollDir === "up" ? "100%" : "auto",
+          }}
+        >
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
+            <path d="M6 0 C6 0 2 8 4 12 C5 14 6 16 6 20 C6 16 7 14 8 12 C10 8 6 0 6 0Z" fill="url(#flameGrad)" opacity="0.9"/>
+            <path d="M6 4 C6 4 4 10 5 13 C5.5 14.5 6 16 6 19 C6 16 6.5 14.5 7 13 C8 10 6 4 6 4Z" fill="#FEC700" opacity="0.7"/>
+            <defs>
+              <linearGradient id="flameGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#FEC700"/>
+                <stop offset="60%" stopColor="#FF6B35"/>
+                <stop offset="100%" stopColor="transparent"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
         {/* Rocket icon - no circle, just the rocket */}
         <div
           ref={rocketRef}
-          className={`transition-all duration-300 ${
-            isClicking ? "scale-75" : isHovering ? "scale-130" : "scale-100"
+          className={`transition-all duration-150 ${
+            isClicking ? "scale-75" : isHovering && !scrollDir ? "scale-130" : "scale-100"
           }`}
         >
           <svg
