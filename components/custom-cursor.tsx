@@ -15,6 +15,7 @@ export function CustomCursor() {
   const lastPosition = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
   const lastScrollY = useRef(0)
+  const lastScrollDir = useRef<"up" | "down">("down")
   const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -86,6 +87,7 @@ export function CustomCursor() {
 
       setScrollDir(dir)
       setIsScrolling(true)
+      lastScrollDir.current = dir
 
       // Boost rocket on scroll
       if (rocket && flame) {
@@ -105,17 +107,16 @@ export function CustomCursor() {
         })
       }
 
-      // Clear direction after scroll stops - use proper callback to reset state
+      // After scroll stops: keep direction, just reset scale and flame back to calm
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current)
       scrollTimeout.current = setTimeout(() => {
-        // Reset scroll state
         setScrollDir(null)
         setIsScrolling(false)
-        
-        // Reset animation to neutral position
+
         if (rocket && flame) {
+          // Keep the last scroll direction rotation — don't snap back to 0
           gsap.to(rocket, {
-            rotation: 0,
+            rotation: lastScrollDir.current === "down" ? 180 : 0,
             scale: 1,
             duration: 0.4,
             ease: "elastic.out(1, 0.5)"
