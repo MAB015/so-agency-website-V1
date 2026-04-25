@@ -66,9 +66,10 @@ export function CustomCursor() {
         // Scale flame based on speed
         if (flame) {
           gsap.to(flame, {
-            scaleY: Math.min(1 + speed * 0.05, 2),
-            opacity: Math.min(0.6 + speed * 0.02, 1),
-            duration: 0.1
+            scaleY: Math.min(1 + speed * 0.04, 1.8),
+            opacity: Math.min(0.7 + speed * 0.02, 1),
+            duration: 0.1,
+            transformOrigin: "16px 26px"
           })
         }
       }
@@ -101,9 +102,10 @@ export function CustomCursor() {
         
         // Intensify flame
         gsap.to(flame, {
-          scaleY: 2.5,
+          scaleY: 2,
           opacity: 1,
           duration: 0.15,
+          transformOrigin: "16px 26px"
         })
       }
 
@@ -123,8 +125,9 @@ export function CustomCursor() {
           })
           gsap.to(flame, {
             scaleY: 1,
-            opacity: 0.7,
+            opacity: 0.85,
             duration: 0.3,
+            transformOrigin: "16px 26px"
           })
         }
       }, 150)
@@ -196,71 +199,51 @@ export function CustomCursor() {
           }}
         >
           <svg
-            width="36"
-            height="36"
-            viewBox="0 0 32 32"
+            width="40"
+            height="52"
+            viewBox="0 0 32 44"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Flame - positioned at bottom, will scale with scroll */}
-            <g ref={flameRef} style={{ transformOrigin: "16px 28px", opacity: 0.7 }}>
-              {/* Outer flame */}
-              <path
-                d="M13 24 C13 24 11 28 12 30 C13 32 15 34 16 36 C17 34 19 32 20 30 C21 28 19 24 19 24"
-                fill="url(#flameGradient)"
-              />
-              {/* Inner flame */}
-              <path
-                d="M14.5 24 C14.5 24 13.5 27 14 28.5 C14.5 30 15.5 31 16 32 C16.5 31 17.5 30 18 28.5 C18.5 27 17.5 24 17.5 24"
-                fill="#FEC700"
-              />
-              {/* Core flame */}
-              <path
-                d="M15.5 24 C15.5 24 15 26 15.5 27 C16 28 16 28 16 28 C16 28 16 28 16.5 27 C17 26 16.5 24 16.5 24"
-                fill="#FFF"
-                opacity="0.9"
-              />
-            </g>
-
-            {/* Rocket body */}
-            <path
-              d="M16 2 C16 2 10 8 10 16 C10 20 12 23 14 24 L16 24 L18 24 C20 23 22 20 22 16 C22 8 16 2 16 2Z"
-              fill="#FEC700"
-            />
-            
-            {/* Rocket highlight */}
-            <path
-              d="M16 3 C16 3 12 8 12 15 C12 18 13 20 14.5 22 L16 22 C14 20 13 17 13 15 C13 9 16 4 16 4"
-              fill="#FFE066"
-              opacity="0.6"
-            />
-
-            {/* Window */}
-            <circle cx="16" cy="12" r="3" fill="#0a0a14" />
-            <circle cx="16" cy="12" r="2" fill="#1a1a2e" />
-            <circle cx="15" cy="11" r="0.8" fill="#3B9EFF" opacity="0.8" />
-
-            {/* Left fin */}
-            <path
-              d="M10 18 C8 20 7 23 7 24 C8 24 10 23 12 21"
-              fill="#FEC700"
-            />
-            
-            {/* Right fin */}
-            <path
-              d="M22 18 C24 20 25 23 25 24 C24 24 22 23 20 21"
-              fill="#FEC700"
-            />
-
-            {/* Gradients */}
             <defs>
-              <linearGradient id="flameGradient" x1="16" y1="24" x2="16" y2="36" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FEC700" />
-                <stop offset="40%" stopColor="#FF6B35" />
-                <stop offset="80%" stopColor="#FF4444" />
-                <stop offset="100%" stopColor="transparent" />
+              <linearGradient id="flameGrad" x1="16" y1="26" x2="16" y2="44" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#FFF8" />
+                <stop offset="20%" stopColor="#FEC700" />
+                <stop offset="55%" stopColor="#FF6B35" />
+                <stop offset="100%" stopColor="#FF443300" />
+              </linearGradient>
+              <linearGradient id="flameGradInner" x1="16" y1="26" x2="16" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#FFF" />
+                <stop offset="100%" stopColor="#FEC70000" />
               </linearGradient>
             </defs>
+
+            {/* Flame — sits inside viewBox below rocket exhaust at y=26 */}
+            <g ref={flameRef} style={{ transformOrigin: "16px 26px", opacity: 0.85 }}>
+              {/* Outer flame */}
+              <path d="M12 26 C11 30 10 34 12 38 C13.5 41 16 44 16 44 C16 44 18.5 41 20 38 C22 34 21 30 20 26 Z" fill="url(#flameGrad)" />
+              {/* Inner flame */}
+              <path d="M13.5 26 C13 29 12.5 32 14 35 C15 37 16 39 16 39 C16 39 17 37 18 35 C19.5 32 19 29 18.5 26 Z" fill="url(#flameGradInner)" opacity="0.7" />
+            </g>
+
+            {/* Left fin */}
+            <path d="M10 17 C7 20 6 24 7 26 L10 25 Z" fill="#E6B800" />
+            {/* Right fin */}
+            <path d="M22 17 C25 20 26 24 25 26 L22 25 Z" fill="#E6B800" />
+
+            {/* Rocket body */}
+            <path d="M16 1 C16 1 9 8 9 17 C9 21.5 11 24.5 13.5 26 L18.5 26 C21 24.5 23 21.5 23 17 C23 8 16 1 16 1 Z" fill="#FEC700" />
+
+            {/* Body highlight */}
+            <path d="M16 2.5 C16 2.5 11.5 9 11.5 16.5 C11.5 19.5 12.5 22 14 24 L16 24 C13.5 22 12.5 19 12.5 16.5 C12.5 10 16 4 16 4 Z" fill="#FFE880" opacity="0.5" />
+
+            {/* Exhaust nozzle */}
+            <rect x="13" y="24" width="6" height="2.5" rx="1" fill="#C89A00" />
+
+            {/* Window */}
+            <circle cx="16" cy="13" r="3.5" fill="#0d0d1a" />
+            <circle cx="16" cy="13" r="2.5" fill="#111827" />
+            <circle cx="15" cy="12" r="1" fill="#3B9EFF" opacity="0.9" />
           </svg>
         </div>
       </div>
