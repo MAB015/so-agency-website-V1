@@ -14,7 +14,11 @@ export function StarBackground() {
   const [stars, setStars] = useState<Star[]>([])
 
   useEffect(() => {
-    const generatedStars: Star[] = Array.from({ length: 50 }, (_, i) => ({
+    // Check if mobile for reduced star count
+    const isMobile = window.matchMedia("(max-width: 768px)").matches
+    const starCount = isMobile ? 25 : 50
+
+    const generatedStars: Star[] = Array.from({ length: starCount }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,

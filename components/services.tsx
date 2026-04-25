@@ -2,6 +2,7 @@
 
 import { Code, Palette, ShoppingCart, Fingerprint, Megaphone, Bot } from "lucide-react"
 import { useStaggerChildren } from "@/hooks/use-gsap-animations"
+import { TiltCard } from "@/components/tilt-card"
 
 const services = [
   {
@@ -81,13 +82,15 @@ export function Services() {
         {/* Bento grid */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {services.map((service) => (
-            <div
+            <TiltCard
               key={service.title}
-              className={`${service.size} relative group rounded-2xl border border-border bg-card/30 p-6 transition-all duration-500 card-shine overflow-hidden ${
+              className={`${service.size} relative group rounded-2xl border border-border bg-card/30 p-6 transition-colors duration-300 card-shine overflow-hidden ${
                 service.disabled 
                   ? "opacity-60" 
-                  : `hover:border-[#FEC700]/50 card-hover-3d ${service.borderGlow}`
+                  : `hover:border-[#FEC700]/50 ${service.borderGlow}`
               }`}
+              max={service.disabled ? 0 : 6}
+              scale={service.disabled ? 1 : 1.02}
             >
               {/* Badge */}
               {service.badge && (
@@ -113,7 +116,7 @@ export function Services() {
               {!service.disabled && (
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3B9EFF] to-[#FEC700] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               )}
-            </div>
+            </TiltCard>
           ))}
         </div>
       </div>

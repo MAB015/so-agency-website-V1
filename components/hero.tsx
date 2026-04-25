@@ -54,7 +54,7 @@ export function Hero() {
               </a>
             </Button>
           </div>
-          <Button asChild variant="outline" size="lg" className="text-base px-8 hover-scale border-border text-foreground hover:bg-primary/10 hover:text-foreground hover:border-primary/50">
+          <Button asChild variant="outline" size="lg" className="text-base px-8 hover-scale border-[#FEC700] text-foreground hover:bg-[#FEC700]/10 hover:text-foreground hover:border-[#FEC700]">
             <a href="#services">See Our Services</a>
           </Button>
         </div>

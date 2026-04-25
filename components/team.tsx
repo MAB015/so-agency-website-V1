@@ -1,6 +1,7 @@
 "use client"
 
 import { useStaggerChildren } from "@/hooks/use-gsap-animations"
+import { TiltCard } from "@/components/tilt-card"
 
 const team = [
   {
@@ -36,7 +37,11 @@ export function Team() {
           {/* Team members */}
           {team.map((member) => (
             <div key={member.name} className="group">
-              <div className="relative aspect-[3/4] rounded-xl overflow-hidden border border-border/50 bg-card/30 mb-4 transition-all duration-500 group-hover:border-[#FEC700]/50 group-hover:shadow-[0_0_40px_-10px] group-hover:shadow-[#FEC700]/30 card-hover-3d">
+              <TiltCard
+                className="relative aspect-[3/4] rounded-xl overflow-hidden border border-border/50 bg-card/30 mb-4 transition-colors duration-300 group-hover:border-[#FEC700]/50 group-hover:shadow-[0_0_40px_-10px] group-hover:shadow-[#FEC700]/30"
+                max={8}
+                scale={1.02}
+              >
                 <img
                   src={member.image}
                   alt={member.name}
@@ -47,7 +52,7 @@ export function Team() {
                 
                 {/* Hover accent line */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3B9EFF] to-[#FEC700] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-              </div>
+              </TiltCard>
               <h3 className="text-lg font-semibold text-foreground group-hover:text-[#FEC700] transition-colors">{member.name}</h3>
               <p className="text-sm text-[#3B9EFF]">{member.role}</p>
             </div>

@@ -154,6 +154,41 @@
   }
 }
 
+/* Custom Scrollbar with animation */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.08 0.01 270);
+  border-left: 1px solid oklch(0.15 0.02 270);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FEC700 0%, #FF6B35 50%, #FEC700 100%);
+  background-size: 100% 200%;
+  border-radius: 5px;
+  border: 2px solid oklch(0.08 0.01 270);
+  animation: scrollbar-gradient 3s ease infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFE066 0%, #FEC700 50%, #FF6B35 100%);
+  background-size: 100% 200%;
+  box-shadow: 0 0 10px #FEC700, 0 0 20px rgba(254, 199, 0, 0.5);
+}
+
+@keyframes scrollbar-gradient {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 0% 100%; }
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #FEC700 oklch(0.08 0.01 270);
+}
+
 /* Star animation */
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; }
@@ -323,4 +358,44 @@
   background-clip: text;
   color: transparent;
   animation: gradient-shift 4s ease infinite;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Disable complex 3D hover effects on mobile */
+  .card-hover-3d:hover {
+    transform: none;
+  }
+  
+  /* Simplify comet animation on mobile for performance */
+  .comet-border::after {
+    display: none;
+  }
+  
+  /* Reduce animation durations on mobile */
+  .animate-twinkle {
+    animation-duration: 4s;
+  }
+  
+  /* Touch-friendly tap areas */
+  .comet-border {
+    touch-action: manipulation;
+  }
+  
+  /* Prevent text selection during swipe */
+  .swipe-container {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Touch feedback for interactive elements */
+@media (hover: none) {
+  .card-shine:active::before {
+    opacity: 1;
+  }
+  
+  .hover-scale:active {
+    transform: scale(0.98);
+  }
 }
