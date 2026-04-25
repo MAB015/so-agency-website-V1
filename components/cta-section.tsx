@@ -36,7 +36,7 @@ export function CTASection() {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <div className="animated-border rounded-lg">
+              <div className="comet-border rounded-lg">
                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all text-base px-8">
                   <a href="mailto:hello@soagency.dev">
                     Let&apos;s Make It Happen

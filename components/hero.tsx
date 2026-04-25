@@ -27,15 +27,13 @@ export function Hero() {
         {/* Main headline */}
         <h1 className="hero-title font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance mb-4 opacity-0">
           Your vision, our{" "}
-          <span className="text-gradient-animated">stellar</span> design
+          <span className="text-foreground">stellar</span> design
         </h1>
 
         {/* Slogan */}
         <div className="hero-subtitle mb-6 opacity-0">
-          <p className="font-[family-name:var(--font-display)] text-xl sm:text-2xl md:text-3xl font-normal tracking-widest uppercase">
-            <span className="text-[#3B9EFF]">Design.</span>{" "}
-            <span className="text-foreground/70">Build.</span>{" "}
-            <span className="text-[#FEC700]">Launch.</span>
+          <p className="font-[family-name:var(--font-roboto)] text-xl sm:text-2xl md:text-3xl font-bold tracking-widest uppercase text-foreground">
+            Design. Build. Launch.
           </p>
         </div>
 
@@ -47,8 +45,8 @@ export function Hero() {
 
         {/* CTAs */}
         <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0">
-          {/* Animated border button */}
-          <div className="animated-border rounded-lg">
+          {/* Comet border button */}
+          <div className="comet-border rounded-lg">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all text-base px-8 relative z-10">
               <a href="#contact">
                 Book Your Free Diagnostic
@@ -59,16 +57,6 @@ export function Hero() {
           <Button asChild variant="outline" size="lg" className="text-base px-8 hover-scale">
             <a href="#services">See Our Services</a>
           </Button>
-        </div>
-
-        {/* Trust indicators */}
-        <div className="hero-trust mt-16 pt-8 border-t border-border/50 opacity-0">
-          <p className="text-sm text-muted-foreground mb-4">Trusted by businesses worldwide</p>
-          <div className="flex items-center justify-center gap-8 opacity-50">
-            <span className="text-lg font-semibold text-muted-foreground">brand.</span>
-            <span className="text-lg font-semibold text-muted-foreground">techco</span>
-            <span className="text-lg font-semibold text-muted-foreground">growth+</span>
-          </div>
         </div>
       </div>
     </section>

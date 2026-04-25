@@ -1,6 +1,5 @@
 "use client"
 
-import { UserPlus } from "lucide-react"
 import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 
 const team = [
@@ -33,7 +32,7 @@ export function Team() {
         </div>
 
         {/* Team grid */}
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {/* Team members */}
           {team.map((member) => (
             <div key={member.name} className="group">
@@ -53,20 +52,6 @@ export function Team() {
               <p className="text-sm text-[#3B9EFF]">{member.role}</p>
             </div>
           ))}
-
-          {/* Join the team card */}
-          <div className="group">
-            <div className="relative aspect-[3/4] rounded-xl overflow-hidden border border-dashed border-border/50 bg-card/20 mb-4 flex items-center justify-center transition-all duration-500 group-hover:border-primary/30 group-hover:bg-card/30 hover-scale">
-              <div className="flex flex-col items-center gap-3">
-                <div className="size-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
-                  <UserPlus className="size-8 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300" />
-                </div>
-                <span className="text-sm text-muted-foreground/70 group-hover:text-muted-foreground transition-colors">We&apos;re hiring</span>
-              </div>
-            </div>
-            <h3 className="text-lg font-semibold text-muted-foreground group-hover:text-foreground transition-colors">Join the Team</h3>
-            <p className="text-sm text-muted-foreground/70">Open Positions</p>
-          </div>
         </div>
       </div>
     </section>

@@ -41,10 +41,8 @@ export function Footer() {
                 className="h-10 w-auto"
               />
             </a>
-            <p className="text-xl font-black tracking-tight mb-2">
-              <span className="text-[#3B9EFF]">Design.</span>{" "}
-              <span className="text-foreground">Build.</span>{" "}
-              <span className="text-[#FEC700]">Launch.</span>
+            <p className="font-[family-name:var(--font-roboto)] text-xl font-bold tracking-widest uppercase text-foreground mb-2">
+              Design. Build. Launch.
             </p>
             <p className="text-sm text-muted-foreground max-w-sm mb-6">
               Your digital launch partner. We help businesses launch and grow with strategic branding, web development, and marketing.
