@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { ChevronLeft, ChevronRight, ExternalLink, Pause, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useScrollFadeIn } from "@/hooks/use-gsap-animations"
+import gsap from "gsap"
 
 const projects = [
   {
@@ -47,15 +48,58 @@ const projects = [
 export function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isAnimating, setIsAnimating] = useState(false)
   const sectionRef = useScrollFadeIn<HTMLDivElement>()
+  const imageRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  const animateSlide = useCallback((newIndex: number) => {
+    if (isAnimating || newIndex === currentIndex) return
+    setIsAnimating(true)
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setCurrentIndex(newIndex)
+        setIsAnimating(false)
+      }
+    })
+
+    // Animate out
+    tl.to(imageRef.current, {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.3,
+      ease: "power2.in"
+    }, 0)
+    tl.to(contentRef.current, {
+      opacity: 0,
+      x: -20,
+      duration: 0.3,
+      ease: "power2.in"
+    }, 0)
+
+    // Animate in
+    tl.fromTo(imageRef.current, 
+      { opacity: 0, scale: 1.05 },
+      { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" },
+      0.35
+    )
+    tl.fromTo(contentRef.current,
+      { opacity: 0, x: 20 },
+      { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" },
+      0.4
+    )
+  }, [isAnimating, currentIndex])
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % projects.length)
-  }, [])
+    const newIndex = (currentIndex + 1) % projects.length
+    animateSlide(newIndex)
+  }, [currentIndex, animateSlide])
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length)
-  }, [])
+    const newIndex = (currentIndex - 1 + projects.length) % projects.length
+    animateSlide(newIndex)
+  }, [currentIndex, animateSlide])
 
   // Autoplay
   useEffect(() => {
@@ -117,7 +161,7 @@ export function Portfolio() {
         {/* Carousel */}
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Image */}
-          <div className="relative group">
+          <div ref={imageRef} className="relative group">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-card/30">
               {/* Slide counter */}
               <div className="absolute top-4 left-4 z-10 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-foreground">
@@ -139,7 +183,7 @@ export function Portfolio() {
           </div>
 
           {/* Content */}
-          <div className="flex flex-col">
+          <div ref={contentRef} className="flex flex-col">
             <h3 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold text-foreground mb-2">
               {currentProject.title}
             </h3>
@@ -180,7 +224,7 @@ export function Portfolio() {
             {projects.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => animateSlide(index)}
                 className={`h-1 rounded-full transition-all duration-300 ${
                   index === currentIndex 
                     ? "flex-1 bg-[#FEC700]" 

@@ -83,7 +83,7 @@ export function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className={`${service.size} relative group rounded-2xl border border-border bg-card/30 p-6 transition-all duration-500 card-shine ${
+              className={`${service.size} relative group rounded-2xl border border-border bg-card/30 p-6 transition-all duration-500 card-shine overflow-hidden ${
                 service.disabled 
                   ? "opacity-60" 
                   : `hover:border-[#FEC700]/50 card-hover-3d ${service.borderGlow}`
@@ -108,6 +108,11 @@ export function Services() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {service.description}
               </p>
+              
+              {/* Hover accent line - gradient border bottom */}
+              {!service.disabled && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3B9EFF] to-[#FEC700] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              )}
             </div>
           ))}
         </div>
