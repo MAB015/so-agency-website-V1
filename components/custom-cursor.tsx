@@ -54,7 +54,7 @@ export function CustomCursor() {
         ease: "power2.out"
       })
 
-      // Rotate rocket based on movement direction (only when moving fast enough)
+      // Rotate rocket based on movement direction (only when moving fast enough and not scrolling)
       if (speed > 2 && !isScrolling) {
         gsap.to(rocket, {
           rotation: angle + 90, // +90 because rocket points up by default
@@ -105,13 +105,17 @@ export function CustomCursor() {
         })
       }
 
-      // Clear direction after scroll stops
+      // Clear direction after scroll stops - use proper callback to reset state
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current)
       scrollTimeout.current = setTimeout(() => {
+        // Reset scroll state
         setScrollDir(null)
         setIsScrolling(false)
+        
+        // Reset animation to neutral position
         if (rocket && flame) {
           gsap.to(rocket, {
+            rotation: 0,
             scale: 1,
             duration: 0.4,
             ease: "elastic.out(1, 0.5)"
@@ -150,7 +154,7 @@ export function CustomCursor() {
       window.removeEventListener("scroll", handleScroll)
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current)
     }
-  }, [isVisible, isScrolling])
+  }, [])
 
   // Don't render on touch devices
   if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
