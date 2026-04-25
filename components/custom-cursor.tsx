@@ -6,7 +6,6 @@ import gsap from "gsap"
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const rocketRef = useRef<HTMLDivElement>(null)
-  const trailRef = useRef<HTMLDivElement>(null)
   const [isHovering, setIsHovering] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
@@ -20,8 +19,7 @@ export function CustomCursor() {
 
     const cursor = cursorRef.current
     const rocket = rocketRef.current
-    const trail = trailRef.current
-    if (!cursor || !rocket || !trail) return
+    if (!cursor || !rocket) return
 
     let mouseX = 0
     let mouseY = 0
@@ -47,14 +45,6 @@ export function CustomCursor() {
         x: mouseX,
         y: mouseY,
         duration: 0.15,
-        ease: "power2.out"
-      })
-
-      // Trail follows with more delay
-      gsap.to(trail, {
-        x: mouseX,
-        y: mouseY,
-        duration: 0.4,
         ease: "power2.out"
       })
 
@@ -113,26 +103,6 @@ export function CustomCursor() {
         }
       `}</style>
 
-      {/* Trail/glow effect */}
-      <div
-        ref={trailRef}
-        className={`fixed pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ left: 0, top: 0 }}
-      >
-        <div
-          className={`rounded-full transition-all duration-300 ${
-            isHovering 
-              ? "w-16 h-16 bg-[#FEC700]/10" 
-              : "w-10 h-10 bg-[#FEC700]/5"
-          }`}
-          style={{
-            filter: "blur(8px)"
-          }}
-        />
-      </div>
-
       {/* Main cursor */}
       <div
         ref={cursorRef}
@@ -141,32 +111,16 @@ export function CustomCursor() {
         }`}
         style={{ left: 0, top: 0 }}
       >
-        {/* Outer ring */}
-        <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-300 ${
-            isClicking 
-              ? "w-8 h-8 border-[#FEC700] bg-[#FEC700]/20" 
-              : isHovering 
-                ? "w-14 h-14 border-[#FEC700]/80 bg-[#FEC700]/10" 
-                : "w-10 h-10 border-[#FEC700]/60"
-          }`}
-          style={{
-            boxShadow: isHovering 
-              ? "0 0 20px rgba(254, 199, 0, 0.4), inset 0 0 10px rgba(254, 199, 0, 0.1)" 
-              : "0 0 10px rgba(254, 199, 0, 0.2)"
-          }}
-        />
-        
-        {/* Rocket icon */}
+        {/* Rocket icon - no circle, just the rocket */}
         <div
           ref={rocketRef}
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-            isClicking ? "scale-75" : isHovering ? "scale-110" : "scale-100"
+          className={`transition-all duration-300 ${
+            isClicking ? "scale-75" : isHovering ? "scale-130" : "scale-100"
           }`}
         >
           <svg
-            width="20"
-            height="20"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -196,14 +150,18 @@ export function CustomCursor() {
           </svg>
         </div>
 
-        {/* Sparkle particles when hovering */}
+        {/* Subtle glow on hover */}
         {isHovering && (
-          <>
-            <div className="absolute w-1 h-1 bg-[#FEC700] rounded-full animate-ping" style={{ top: '0%', left: '50%' }} />
-            <div className="absolute w-1 h-1 bg-[#FEC700] rounded-full animate-ping" style={{ top: '50%', left: '100%', animationDelay: '0.2s' }} />
-            <div className="absolute w-1 h-1 bg-[#FEC700] rounded-full animate-ping" style={{ top: '100%', left: '50%', animationDelay: '0.4s' }} />
-            <div className="absolute w-1 h-1 bg-[#FEC700] rounded-full animate-ping" style={{ top: '50%', left: '0%', animationDelay: '0.6s' }} />
-          </>
+          <div 
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              width: '48px',
+              height: '48px',
+              background: 'radial-gradient(circle, rgba(254, 199, 0, 0.1) 0%, transparent 70%)',
+              filter: 'blur(6px)',
+              pointerEvents: 'none'
+            }}
+          />
         )}
       </div>
     </>
