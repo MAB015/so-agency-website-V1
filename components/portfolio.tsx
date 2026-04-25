@@ -52,10 +52,17 @@ export function Portfolio() {
   const sectionRef = useScrollFadeIn<HTMLDivElement>()
   const imageRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
 
-  const animateSlide = useCallback((newIndex: number) => {
+  // Direction: 1 = next (left to right), -1 = prev (right to left)
+  const animateSlide = useCallback((newIndex: number, direction: 1 | -1 = 1) => {
     if (isAnimating || newIndex === currentIndex) return
     setIsAnimating(true)
+
+    const slideOutX = direction === 1 ? -60 : 60
+    const slideInX = direction === 1 ? 60 : -60
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -64,42 +71,73 @@ export function Portfolio() {
       }
     })
 
-    // Animate out
+    // Animate out - slide in opposite direction
     tl.to(imageRef.current, {
       opacity: 0,
+      x: slideOutX,
       scale: 0.95,
-      duration: 0.3,
+      duration: 0.35,
       ease: "power2.in"
     }, 0)
     tl.to(contentRef.current, {
       opacity: 0,
-      x: -20,
+      x: slideOutX * 0.5,
       duration: 0.3,
       ease: "power2.in"
-    }, 0)
+    }, 0.05)
 
-    // Animate in
+    // Animate in - slide from direction side
     tl.fromTo(imageRef.current, 
-      { opacity: 0, scale: 1.05 },
-      { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" },
-      0.35
+      { opacity: 0, x: slideInX, scale: 1.02 },
+      { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: "power2.out" },
+      0.4
     )
     tl.fromTo(contentRef.current,
-      { opacity: 0, x: 20 },
+      { opacity: 0, x: slideInX * 0.5 },
       { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" },
-      0.4
+      0.5
     )
   }, [isAnimating, currentIndex])
 
   const nextSlide = useCallback(() => {
     const newIndex = (currentIndex + 1) % projects.length
-    animateSlide(newIndex)
+    animateSlide(newIndex, 1)
   }, [currentIndex, animateSlide])
 
   const prevSlide = useCallback(() => {
     const newIndex = (currentIndex - 1 + projects.length) % projects.length
-    animateSlide(newIndex)
+    animateSlide(newIndex, -1)
   }, [currentIndex, animateSlide])
+
+  const goToSlide = useCallback((index: number) => {
+    if (index === currentIndex) return
+    const direction = index > currentIndex ? 1 : -1
+    animateSlide(index, direction)
+  }, [currentIndex, animateSlide])
+
+  // Touch swipe handlers
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }, [])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX
+  }, [])
+
+  const handleTouchEnd = useCallback(() => {
+    const diff = touchStartX.current - touchEndX.current
+    const threshold = 50 // Minimum swipe distance
+
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        // Swiped left -> next
+        nextSlide()
+      } else {
+        // Swiped right -> prev
+        prevSlide()
+      }
+    }
+  }, [nextSlide, prevSlide])
 
   // Autoplay
   useEffect(() => {
@@ -121,13 +159,13 @@ export function Portfolio() {
   const currentProject = projects[currentIndex]
 
   return (
-    <section id="portfolio" className="py-24 px-4 sm:px-6 overflow-hidden">
+    <section id="portfolio" className="py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       <div ref={sectionRef} className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 sm:mb-12">
           <div>
             <p className="text-sm font-medium text-[#FEC700] uppercase tracking-widest mb-2">Selected Work</p>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
+            <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
               Turning Ideas Into Masterpieces
             </h2>
           </div>
@@ -143,14 +181,14 @@ export function Portfolio() {
             </button>
             <button
               onClick={prevSlide}
-              className="size-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+              className="size-10 sm:size-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
               aria-label="Previous project"
             >
               <ChevronLeft className="size-5" />
             </button>
             <button
               onClick={nextSlide}
-              className="size-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+              className="size-10 sm:size-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
               aria-label="Next project"
             >
               <ChevronRight className="size-5" />
@@ -158,13 +196,19 @@ export function Portfolio() {
           </div>
         </div>
 
-        {/* Carousel */}
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+        {/* Carousel with touch support */}
+        <div 
+          ref={carouselRef}
+          className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {/* Image */}
           <div ref={imageRef} className="relative group">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-card/30">
+            <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden border border-border bg-card/30">
               {/* Slide counter */}
-              <div className="absolute top-4 left-4 z-10 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-foreground">
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-background/80 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium text-foreground">
                 {String(currentIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
               </div>
               
@@ -184,22 +228,22 @@ export function Portfolio() {
 
           {/* Content */}
           <div ref={contentRef} className="flex flex-col">
-            <h3 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold text-foreground mb-2">
+            <h3 className="font-[family-name:var(--font-display)] text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
               {currentProject.title}
             </h3>
-            <p className="text-lg text-muted-foreground mb-4">
+            <p className="text-base sm:text-lg text-muted-foreground mb-3 sm:mb-4">
               {currentProject.subtitle}
             </p>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed">
               {currentProject.description}
             </p>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
               {currentProject.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-4 py-2 rounded-full border border-border text-sm text-muted-foreground hover:border-[#FEC700]/50 hover:text-foreground transition-colors cursor-default"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-border text-xs sm:text-sm text-muted-foreground hover:border-[#FEC700]/50 hover:text-foreground transition-colors cursor-default"
                 >
                   {tag}
                 </span>
@@ -208,7 +252,7 @@ export function Portfolio() {
 
             {/* CTA */}
             <div className="comet-border rounded-lg w-fit">
-              <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 text-sm sm:text-base">
                 <a href={currentProject.link} target="_blank" rel="noopener noreferrer">
                   Visit Website
                   <ExternalLink className="size-4 ml-2" />
@@ -219,23 +263,23 @@ export function Portfolio() {
         </div>
 
         {/* Progress bar */}
-        <div className="mt-12">
+        <div className="mt-8 sm:mt-12">
           <div className="flex items-center gap-2 mb-2">
             {projects.map((_, index) => (
               <button
                 key={index}
-                onClick={() => animateSlide(index)}
+                onClick={() => goToSlide(index)}
                 className={`h-1 rounded-full transition-all duration-300 ${
                   index === currentIndex 
                     ? "flex-1 bg-[#FEC700]" 
-                    : "w-8 bg-border hover:bg-muted-foreground/50"
+                    : "w-6 sm:w-8 bg-border hover:bg-muted-foreground/50"
                 }`}
                 aria-label={`Go to project ${index + 1}`}
               />
             ))}
           </div>
           <div className="flex justify-end">
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs sm:text-sm text-muted-foreground">
               {String(currentIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
             </span>
           </div>

@@ -324,3 +324,43 @@
   color: transparent;
   animation: gradient-shift 4s ease infinite;
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Disable complex 3D hover effects on mobile */
+  .card-hover-3d:hover {
+    transform: none;
+  }
+  
+  /* Simplify comet animation on mobile for performance */
+  .comet-border::after {
+    display: none;
+  }
+  
+  /* Reduce animation durations on mobile */
+  .animate-twinkle {
+    animation-duration: 4s;
+  }
+  
+  /* Touch-friendly tap areas */
+  .comet-border {
+    touch-action: manipulation;
+  }
+  
+  /* Prevent text selection during swipe */
+  .swipe-container {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Touch feedback for interactive elements */
+@media (hover: none) {
+  .card-shine:active::before {
+    opacity: 1;
+  }
+  
+  .hover-scale:active {
+    transform: scale(0.98);
+  }
+}
