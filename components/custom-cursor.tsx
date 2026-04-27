@@ -56,19 +56,20 @@ export function CustomCursor() {
       })
 
       // Rotate rocket based on movement direction (only when moving fast enough and not scrolling)
-      if (speed > 2 && !isScrolling) {
-        gsap.to(rocket, {
-          rotation: angle + 90, // +90 because rocket points up by default
-          duration: 0.2,
-          ease: "power2.out"
-        })
-        
-        // Scale flame based on speed
+      if (!isScrolling) {
+        if (speed > 2) {
+          gsap.to(rocket, {
+            rotation: angle + 90, // +90 because rocket points up by default
+            duration: 0.2,
+            ease: "power2.out"
+          })
+        }
+        // Always keep flame visible and scale with speed when not scrolling
         if (flame) {
           gsap.to(flame, {
-            scaleY: Math.min(1 + speed * 0.04, 1.8),
-            opacity: Math.min(0.7 + speed * 0.02, 1),
-            duration: 0.1,
+            scaleY: speed > 2 ? Math.min(1 + speed * 0.04, 1.8) : 1,
+            opacity: speed > 2 ? Math.min(0.75 + speed * 0.02, 1) : 0.75,
+            duration: 0.15,
             transformOrigin: "16px 26px"
           })
         }
@@ -100,10 +101,10 @@ export function CustomCursor() {
           ease: "power2.out"
         })
         
-        // Intensify flame
+        // Hide flame when scrolling down (rocket points down), show intensified when scrolling up
         gsap.to(flame, {
-          scaleY: 2,
-          opacity: 1,
+          scaleY: dir === "down" ? 0 : 2.2,
+          opacity: dir === "down" ? 0 : 1,
           duration: 0.15,
           transformOrigin: "16px 26px"
         })
@@ -123,9 +124,10 @@ export function CustomCursor() {
             duration: 0.4,
             ease: "elastic.out(1, 0.5)"
           })
+          // Keep flame hidden if pointing down, show if pointing up
           gsap.to(flame, {
-            scaleY: 1,
-            opacity: 0.85,
+            scaleY: lastScrollDir.current === "down" ? 0 : 1,
+            opacity: lastScrollDir.current === "down" ? 0 : 0.85,
             duration: 0.3,
             transformOrigin: "16px 26px"
           })
@@ -206,24 +208,21 @@ export function CustomCursor() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <linearGradient id="flameGrad" x1="16" y1="26" x2="16" y2="44" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFF8" />
-                <stop offset="20%" stopColor="#FEC700" />
-                <stop offset="55%" stopColor="#FF6B35" />
-                <stop offset="100%" stopColor="#FF443300" />
+              <linearGradient id="flameGrad" x1="16" y1="27" x2="16" y2="44" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#FEC700" stopOpacity="1" />
+                <stop offset="40%" stopColor="#FF6B35" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#FF4433" stopOpacity="0" />
               </linearGradient>
-              <linearGradient id="flameGradInner" x1="16" y1="26" x2="16" y2="38" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFF" />
-                <stop offset="100%" stopColor="#FEC70000" />
+              <linearGradient id="flameGradCore" x1="16" y1="27" x2="16" y2="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#FFE066" stopOpacity="1" />
+                <stop offset="100%" stopColor="#FEC700" stopOpacity="0" />
               </linearGradient>
             </defs>
 
-            {/* Flame — sits inside viewBox below rocket exhaust at y=26 */}
-            <g ref={flameRef} style={{ transformOrigin: "16px 26px", opacity: 0.85 }}>
-              {/* Outer flame */}
-              <path d="M12 26 C11 30 10 34 12 38 C13.5 41 16 44 16 44 C16 44 18.5 41 20 38 C22 34 21 30 20 26 Z" fill="url(#flameGrad)" />
-              {/* Inner flame */}
-              <path d="M13.5 26 C13 29 12.5 32 14 35 C15 37 16 39 16 39 C16 39 17 37 18 35 C19.5 32 19 29 18.5 26 Z" fill="url(#flameGradInner)" opacity="0.7" />
+            {/* Flame — anchored at exhaust nozzle y=26.5, no white stops */}
+            <g ref={flameRef} style={{ transformOrigin: "16px 26px" }}>
+              <path d="M12.5 26.5 C11 31 10 35 12.5 39 C14 42 16 44 16 44 C16 44 18 42 19.5 39 C22 35 21 31 19.5 26.5 Z" fill="url(#flameGrad)" />
+              <path d="M14 26.5 C13.5 30 13 33 14.5 36 C15.2 37.5 16 39 16 39 C16 39 16.8 37.5 17.5 36 C19 33 18.5 30 18 26.5 Z" fill="url(#flameGradCore)" opacity="0.8" />
             </g>
 
             {/* Left fin */}
