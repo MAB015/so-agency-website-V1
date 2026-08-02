@@ -22,14 +22,14 @@ export const es: Dictionary = {
   hero: {
     badge: 'Tu Socio de Lanzamiento Digital',
     headline: 'Tu visión, nuestro diseño estelar',
-    slogan: 'Diseña. Construye. Lanza.',
+    slogan: 'Diseña. Construye. Despega.',
     description:
       'Transformamos tus ideas de negocio en presencias digitales de alto rendimiento — desde sitios web impactantes hasta identidades de marca completas.',
     ctaPrimary: 'Agenda tu Diagnóstico Gratis',
     ctaSecondary: 'Ver Nuestros Servicios',
   },
   services: {
-    sectionTitle: 'Sistemas Core',
+    sectionTitle: 'Soluciones Estratégicas',
     sectionDescription:
       'Servicios especializados diseñados para garantizar el éxito total de tu negocio en todos los canales digitales.',
     items: [
@@ -41,17 +41,17 @@ export const es: Dictionary = {
       {
         title: 'Diseño UX/UI',
         description:
-          'Interfaces intuitivas y orientadas a la conversión. Cada píxel tiene un propósito en la guía del viaje del usuario.',
+          'Interfaces intuitivas y orientadas a la conversión. Cada sección tiene un propósito en la guía del viaje del usuario.',
       },
       {
         title: 'E-Commerce',
         description:
-          'Soluciones de tienda en línea de extremo a extremo, diseñadas para transacciones sin fricción y máxima conversión.',
+          'Soluciones de tiendas online que van desde el inicio hasta el final, diseñadas para transacciones sin fricción y máxima conversión.',
       },
       {
         title: 'Marca e Identidad',
         description:
-          'Sistemas completos de identidad visual. Forjamos una firma única que resuena en tu industria y establece una autoridad innegable.',
+          'Sistemas completos de identidad visual. Hacemos que tu marca resuene de forma única en tu industria y establezca una autoridad innegable.',
       },
       {
         title: 'Redes Sociales',
@@ -104,12 +104,12 @@ export const es: Dictionary = {
   benefits: {
     sectionTitle: 'Por Qué Nos Eligen',
     sectionDescription:
-      'No somos solo otra agencia. Somos tus socios de lanzamiento, comprometidos con tu éxito.',
+      'No somos solo otra agencia. Somos tu mejor socio para que despegues en tu ruta digital, comprometidos con tu éxito.',
     items: [
       {
         title: 'Orientado al Socio',
         description:
-          'Trabajamos junto a ti, no solo para ti. Tu éxito es nuestra misión — estamos invertidos en tu crecimiento.',
+          'Trabajamos junto a ti, no solo para ti. Tu éxito es nuestra misión — estamos comprometidos en tu crecimiento.',
       },
       {
         title: 'Entrega Rápida',
@@ -172,10 +172,10 @@ export const es: Dictionary = {
     sectionDescription: 'El equipo detrás de tu misión al éxito.',
     members: [
       {
-        name: 'Oscar & Miguel',
+        name: 'Miguel & Oscar',
         label: 'Socios Fundadores',
         description:
-          'El dúo detrás de SO Agency. Diseñamos, construimos y lanzamos presencias digitales que realmente funcionan — combinando desarrollo estratégico con un diseño UX/UI afilado.',
+          'Fundadores de SO Agency. Diseñamos, construimos y lanzamos presencias digitales que realmente impactan — combinando desarrollo estratégico con un diseño UX/UI impactante.',
       },
     ],
   },
