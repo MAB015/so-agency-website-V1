@@ -103,7 +103,7 @@ export const en: Dictionary = {
   benefits: {
     sectionTitle: 'Why Clients Choose Us',
     sectionDescription:
-      'We are not just another agency. We are your launch partners, invested in your success.',
+      'We are not just another agency. We are your launch partners in your digital road, invested in your success.',
     items: [
       {
         title: 'Partner-Driven',
