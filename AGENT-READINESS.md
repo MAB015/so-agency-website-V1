@@ -16,8 +16,8 @@ one below says why.
 | `middleware.ts` | No — disallowed under `output: 'export'` |
 | `next.config` `headers()` | No — a no-op under `output: 'export'` |
 | Route handlers / API routes | No — there is no server |
-| Response headers | Yes — **only** via `public/_headers` (Cloudflare Pages) |
-| `Accept:`-based content negotiation | Not from this repo — needs the Cloudflare zone feature |
+| Response headers | Yes — via `public/_headers` (Cloudflare Pages) |
+| `Accept:`-based content negotiation | Yes — via Pages Functions, see `functions/` |
 
 Cloudflare Pages skips dot-directories on upload **except `.well-known`**, which is why
 the discovery files live in `public/.well-known/`.
@@ -30,7 +30,7 @@ the discovery files live in `public/.well-known/`.
 | 2 | ARD capability manifest | **Done** | `public/.well-known/ai-catalog.json` |
 | 3 | Agent Skills index | **Done** | `public/.well-known/agent-skills/` |
 | 4 | WebMCP browser tools | **Done** | `components/webmcp-tools.tsx` |
-| 5 | Markdown for Agents | **Partial — blocked on plan** | `public/en/index.md`, `public/es/index.md`; edge negotiation needs Cloudflare Pro+ |
+| 5 | Markdown for Agents | **Done** | `functions/en/_middleware.js`, `functions/es/_middleware.js`, `lib/markdown-negotiation.mjs` |
 | 6 | DNS-AID records | **Manual** | Cloudflare DNS — see below |
 | 7 | API Catalog (RFC 9727) | **N/A** | No API exists to catalog |
 | 8 | OAuth/OIDC discovery | **N/A** | No authorization server |
@@ -82,51 +82,53 @@ and `lib/i18n/es.ts` (the source of truth, read by the site and by WebMCP),
 `components/schema-markup.tsx` (JSON-LD, a pre-existing duplicate), `public/llms.txt` and
 the two markdown twins, and `SKILL.md`. Changing a price means updating all of them.
 
-## Remaining manual steps (Cloudflare dashboard)
+## Markdown negotiation (Pages Functions)
 
-Neither can be done from this repo.
+Cloudflare's native **Markdown for Agents** (dashboard → zone → AI Crawl Control) converts
+HTML at the edge, but it needs a **Pro plan or higher**. `soagency.dev` is on Free, so this
+repo implements the same behaviour with **Pages Functions**, which *are* included on Free.
 
-**Markdown for Agents** — gives true `Accept: text/markdown` negotiation, which a static
-export cannot do on its own. Cloudflare converts the HTML to markdown at the edge.
+The result is arguably better than the native feature: it serves the hand-written twins in
+`public/en|es/index.md` rather than a machine conversion, so there is no navigation chrome
+or layout noise in the output.
 
-**Requires a Pro, Business, Enterprise, or SSL for SaaS plan — not available on Free**
-(no extra cost within those plans), and the zone must be proxied through Cloudflare.
+| File | Role |
+|---|---|
+| `lib/markdown-negotiation.mjs` | The negotiation logic, shared by both locales |
+| `functions/en/_middleware.js` | Applies it to `/en/` |
+| `functions/es/_middleware.js` | Applies it to `/es/` |
 
-> **`soagency.dev` is on the Free plan as of 2026-08-25, so this cannot be enabled.** The
-> toggle will not appear in the dashboard. Do not go looking for it — revisit only if the
-> zone is upgraded. Everything below documents what to do in that case.
->
-> Little is lost meanwhile: the hand-written markdown twins cover the same need, are
-> advertised via `rel="alternate"; type="text/markdown"` in the `Link` header, and carry no
-> navigation noise or conversion artifacts. The only difference is that an agent must
-> follow the `Link` header instead of getting markdown straight from `/en/`.
+Behaviour:
 
-Dashboard → account → the `soagency.dev` zone → **AI Crawl Control** → enable the
-**Markdown for Agents** toggle. Equivalent API call:
+- `Accept: text/markdown` → `200` with `Content-Type: text/markdown; charset=utf-8`,
+  `x-markdown-tokens` (a ~4-chars-per-token estimate), `Vary: Accept`, CORS, and the same
+  discovery `Link` relations `_headers` puts on the HTML.
+- Anything else, **including `Accept: */*`** → the HTML, untouched apart from an appended
+  `Vary: Accept`. Wildcards deliberately do not match, so browsers and generic crawlers are
+  unaffected.
+- On any error, it falls through to the HTML. Negotiation must never take the page down.
 
-```bash
-curl -X PATCH "https://api.cloudflare.com/client/v4/zones/{zone_id}/settings/content_converter" \
-  -H "Authorization: Bearer {token}" \
-  -H "Content-Type: application/json" \
-  --data '{"value":"on"}'
-```
+**Why the middleware is scoped to `/en/*` and `/es/*` and not `functions/_middleware.js`:**
+a root middleware intercepts *every* request, including all static assets. On the Free plan
+that burns the 100k/day Functions quota (static assets alone are free and unlimited — only
+Function invocations count) and puts the entire site behind a Function that could fail.
+Scoped, only the two real pages invoke it. **Do not move these to the root.**
 
-To scope it to specific hostnames or paths instead of the whole zone, use
-Rules → Overview → Create rule → Configuration Rules.
+### Testing it locally
 
-When enabled, a request carrying `Accept: text/markdown` returns
-`Content-Type: text/markdown; charset=utf-8` plus `x-markdown-tokens`,
-`x-original-tokens`, and `Vary: Accept`. Output is YAML frontmatter (title, description,
-image from meta tags), the body as markdown, and any JSON-LD preserved in a fenced block.
-Only HTML is converted, and origin responses over 2 MB are skipped.
-
-Verify:
+`_headers` and Functions are both ignored by a plain static server. Use Wrangler:
 
 ```bash
-curl -sI -H "Accept: text/markdown" https://soagency.dev/en/ | grep -i 'content-type\|x-markdown-tokens'
+pnpm run build
+npx wrangler pages dev out --port 8788 --compatibility-date=2025-01-01
 ```
 
-The static `.md` twins remain the fallback and stay useful either way.
+```bash
+curl -sI -H 'Accept: text/markdown' http://127.0.0.1:8788/en/   # -> text/markdown
+curl -sI -H 'Accept: */*'           http://127.0.0.1:8788/en/   # -> text/html
+```
+
+## Remaining manual step (Cloudflare dashboard)
 
 **DNS-AID** — lowest value here: it is an early IETF draft
 (`draft-mozleywilliams-dnsop-dnsaid`) and this site has no A2A or MCP endpoint to
@@ -165,3 +167,10 @@ curl -sI https://soagency.dev/es/ | grep -i '^link:' | tr ',' '\n' | nl
 ```
 
 Each relation should appear exactly once.
+
+Markdown negotiation, which must flip on the `Accept` header and nothing else:
+
+```bash
+curl -sI -H 'Accept: text/markdown' https://soagency.dev/en/ | grep -iE 'content-type|x-markdown-tokens'
+curl -sI -H 'Accept: */*'           https://soagency.dev/en/ | grep -i  'content-type'
+```
