@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Rocket } from "lucide-react"
 import { useScrollFadeIn } from "@/hooks/use-gsap-animations"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { WhatsAppLink } from "@/components/whatsapp-link"
 import type { Dictionary } from "@/lib/i18n/types"
 
 export function CTASection({ dict }: { dict: Dictionary }) {
@@ -43,16 +44,16 @@ export function CTASection({ dict }: { dict: Dictionary }) {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="comet-border rounded-lg">
                   <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all text-base px-8">
-                    <a href="https://wa.me/message/5MH2JY5B4ERVJ1">
+                    <WhatsAppLink source="cta-primary">
                       {dict.cta.ctaPrimary}
                       <ArrowRight className="size-4 ml-2" />
-                    </a>
+                    </WhatsAppLink>
                   </Button>
                 </div>
                 <Button asChild variant="outline" size="lg" className="text-base px-8 border-foreground/30 hover:border-accent hover:shadow-lg hover:shadow-accent/40">
-                  <a href="https://wa.me/message/5MH2JY5B4ERVJ1">
+                  <WhatsAppLink source="cta-secondary">
                     {dict.cta.ctaSecondary}
-                  </a>
+                  </WhatsAppLink>
                 </Button>
               </div>
             </ScrollReveal>

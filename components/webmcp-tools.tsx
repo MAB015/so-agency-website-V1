@@ -2,9 +2,7 @@
 
 import { useEffect } from "react"
 import type { Dictionary } from "@/lib/i18n/types"
-
-// Same channel used by components/cta-section.tsx and components/right-click-cta.tsx.
-const WHATSAPP_URL = "https://wa.me/message/5MH2JY5B4ERVJ1"
+import { WHATSAPP_URL, trackContactClick } from "@/lib/contact"
 
 // Section ids rendered on the page, matching dict.navbar.links hrefs.
 const SECTIONS = ["services", "process", "team", "faq", "contact"] as const
@@ -158,6 +156,8 @@ export function WebMCPTools({ dict }: { dict: Dictionary }) {
           "Open SO Agency's WhatsApp conversation to book a free diagnostic call or request a quote. This is the agency's only direct contact channel — there is no contact form or booking widget.",
         inputSchema: NO_ARGS,
         execute: async () => {
+          // An agent-driven contact is still a contact — report it like any other CTA.
+          trackContactClick("agent-tool")
           window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer")
           return text(
             `${

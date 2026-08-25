@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/i18n/types'
+import { WHATSAPP_URL } from '@/lib/contact'
 
 type Props = {
   locale: Locale
@@ -152,7 +153,7 @@ export function SchemaMarkup({ locale, baseUrl }: Props) {
         '@type': 'ContactPoint',
         contactType: 'customer service',
         availableLanguage: ['English', 'Spanish'],
-        url: 'https://wa.me/message/5MH2JY5B4ERVJ1',
+        url: WHATSAPP_URL,
       },
       sameAs: [
         'https://soagency.dev',
@@ -226,7 +227,7 @@ export function SchemaMarkup({ locale, baseUrl }: Props) {
         '@type': 'ContactPoint',
         contactType: 'sales',
         availableLanguage: ['English', 'Spanish'],
-        url: 'https://wa.me/message/5MH2JY5B4ERVJ1',
+        url: WHATSAPP_URL,
       },
     },
     // 5. BreadcrumbList

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react"
 import { ArrowRight, Rocket, X } from "lucide-react"
+import { WhatsAppLink } from "@/components/whatsapp-link"
 
 type Position = { x: number; y: number }
 
@@ -119,8 +120,8 @@ export function RightClickCTA() {
       <div className="h-px bg-border mb-3" />
 
       {/* CTA button */}
-      <a
-        href="https://wa.me/message/5MH2JY5B4ERVJ1"
+      <WhatsAppLink
+        source="right-click-menu"
         onClick={close}
         className={[
           "comet-border rounded-lg block w-full",
@@ -138,7 +139,7 @@ export function RightClickCTA() {
           Contact Us
           <ArrowRight className="size-3.5" />
         </span>
-      </a>
+      </WhatsAppLink>
 
       {/* Hint */}
       <p className="text-[11px] text-muted-foreground text-center mt-2.5">
