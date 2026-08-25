@@ -9,7 +9,7 @@
 We transform your business ideas into high-performing digital presences — from stunning
 websites to complete brand identities.
 
-- Book Your Free Diagnostic → <https://wa.me/message/5MH2JY5B4ERVJ1>
+- Book Your Free Diagnostic → <https://wa.me/573159970541>
 - See Our Services → [#services](#core-systems)
 
 ## Core Systems
@@ -159,8 +159,8 @@ distance is never a barrier to great work.
 Let's talk about your project and how we can help you reach new heights. Book a free
 diagnostic call today.
 
-- Let's Make It Happen → <https://wa.me/message/5MH2JY5B4ERVJ1>
-- Send a Message → <https://wa.me/message/5MH2JY5B4ERVJ1>
+- Let's Make It Happen → <https://wa.me/573159970541>
+- Send a Message → <https://wa.me/573159970541>
 
 We typically respond within 24 hours.
 

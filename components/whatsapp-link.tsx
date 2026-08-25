@@ -1,10 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { WHATSAPP_URL, trackContactClick, type ContactSource } from '@/lib/contact'
+import { whatsappUrl, trackContactClick, type ContactSource } from '@/lib/contact'
 
 type Props = Omit<React.ComponentPropsWithoutRef<'a'>, 'href' | 'target' | 'rel'> & {
   source: ContactSource
+  /** Message written into the chat for the user. Omit for a plain, empty chat. */
+  message?: string
+  /** Extra reporting dimension, e.g. which service card this came from. */
+  detail?: string
 }
 
 /**
@@ -18,16 +22,16 @@ type Props = Omit<React.ComponentPropsWithoutRef<'a'>, 'href' | 'target' | 'rel'
  * Forwards its ref and spreads props so it works as a shadcn `<Button asChild>` child.
  */
 export const WhatsAppLink = React.forwardRef<HTMLAnchorElement, Props>(
-  function WhatsAppLink({ source, onClick, ...rest }, ref) {
+  function WhatsAppLink({ source, message, detail, onClick, ...rest }, ref) {
     return (
       <a
         ref={ref}
         {...rest}
-        href={WHATSAPP_URL}
+        href={whatsappUrl(message)}
         target="_blank"
         rel="noopener noreferrer"
         onClick={(event) => {
-          trackContactClick(source)
+          trackContactClick(source, detail)
           onClick?.(event)
         }}
       />

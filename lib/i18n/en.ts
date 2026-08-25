@@ -32,6 +32,9 @@ export const en: Dictionary = {
     sectionTitle: 'Core Systems',
     sectionDescription:
       'Specialized services designed to ensure total business success across all digital channels.',
+    cta: "Let's talk",
+    ctaMessage:
+      'Hi SO Agency 👋\n\nI am interested in your *{service}* service.\n\nMy project is about:',
     items: [
       {
         title: 'Web Design & Dev',
@@ -185,6 +188,8 @@ export const en: Dictionary = {
     ctaPrimary: "Let's Make It Happen",
     ctaSecondary: 'Send a Message',
     responseTime: 'We typically respond within 24 hours',
+    whatsappMessage:
+      'Hi SO Agency 👋\n\nI would like to book a free diagnostic call.\n\nMy project is about:',
   },
   faq: {
     sectionTitle: 'Frequently Asked Questions',

@@ -47,7 +47,7 @@ from the diagnostic call.
    sequentially or in parallel — the agency recommends an approach on the call.
 2. **Set expectations** using the bands above, flagged as starting points.
 3. **Hand off to the contact channel.** The only direct channel is WhatsApp:
-   <https://wa.me/message/5MH2JY5B4ERVJ1>
+   <https://wa.me/573159970541>
 
    There is no contact form, no booking widget, and no email address published on the
    site. Do not invent one. Do not attempt to submit anything programmatically — the link

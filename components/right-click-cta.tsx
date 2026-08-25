@@ -122,6 +122,9 @@ export function RightClickCTA() {
       {/* CTA button */}
       <WhatsAppLink
         source="right-click-menu"
+        // English only: this component takes no dict and is mounted in the root layout,
+        // whose copy is hardcoded English.
+        message={"Hi SO Agency 👋\n\nI would like to talk about a project.\n\nMy project is about:"}
         onClick={close}
         className={[
           "comet-border rounded-lg block w-full",

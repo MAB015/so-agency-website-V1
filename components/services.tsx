@@ -1,12 +1,13 @@
 "use client"
 
-import { Code, Palette, ShoppingCart, Fingerprint, Megaphone, Bot } from "lucide-react"
+import { Code, Palette, ShoppingCart, Fingerprint, Megaphone, Bot, ArrowRight } from "lucide-react"
 import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 import { TiltCard } from "@/components/tilt-card"
 import { SectionHeader, ScrollReveal } from "@/components/scroll-reveal"
+import { WhatsAppLink } from "@/components/whatsapp-link"
 import type { Dictionary } from "@/lib/i18n/types"
 
 if (typeof window !== "undefined") {
@@ -63,6 +64,8 @@ export function Services({ dict }: { dict: Dictionary }) {
                 isMobile={isMobile}
                 isActive={activeCard === service.title}
                 onActivate={setActiveCard}
+                ctaLabel={dict.services.cta}
+                ctaMessage={dict.services.ctaMessage}
               />
             ))}
           </div>
@@ -77,6 +80,8 @@ export function Services({ dict }: { dict: Dictionary }) {
                 isMobile={isMobile}
                 isActive={activeCard === service.title}
                 onActivate={setActiveCard}
+                ctaLabel={dict.services.cta}
+                ctaMessage={dict.services.ctaMessage}
               />
             ))}
           </div>
@@ -91,6 +96,8 @@ export function Services({ dict }: { dict: Dictionary }) {
                 isMobile={isMobile}
                 isActive={activeCard === service.title}
                 onActivate={setActiveCard}
+                ctaLabel={dict.services.cta}
+                ctaMessage={dict.services.ctaMessage}
               />
             ))}
           </div>
@@ -109,6 +116,8 @@ function ServiceCard({
   isMobile,
   isActive,
   onActivate,
+  ctaLabel,
+  ctaMessage,
 }: {
   service: {
     icon: React.ElementType
@@ -124,6 +133,8 @@ function ServiceCard({
   isMobile: boolean
   isActive: boolean
   onActivate: (title: string | null) => void
+  ctaLabel: string
+  ctaMessage: string
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
 
@@ -171,7 +182,7 @@ function ServiceCard({
         className={`group h-full ${isMobile && !service.disabled ? "cursor-pointer" : ""}`}
       >
         <TiltCard
-          className={`relative rounded-2xl border p-6 backdrop-blur-[2px] card-shine overflow-hidden transition duration-300 h-full ${
+          className={`relative rounded-2xl border p-6 backdrop-blur-[2px] card-shine overflow-hidden transition duration-300 h-full flex flex-col ${
             service.disabled
               ? "opacity-60 border-white/[0.08] bg-white/[0.01]"
               : isMobile
@@ -220,6 +231,43 @@ function ServiceCard({
           <p className="text-sm text-muted-foreground leading-relaxed">
             {service.description}
           </p>
+
+          {/* Per-service CTA. Present on every card so all six share one anatomy;
+              mt-auto pins it to the bottom so buttons line up across a row whatever
+              the description length. relative z-10 is required - .card-shine::before
+              covers the card and would otherwise swallow the click. */}
+          <div className="mt-auto pt-6 flex justify-end relative z-10">
+            {service.disabled ? (
+              // Genuinely disabled, not just styled that way: unclickable and skipped
+              // when tabbing. The "Standby" badge explains why.
+              <button
+                type="button"
+                disabled
+                className="inline-flex items-center gap-1.5 h-9 sm:h-8 px-3 -mr-3 rounded-md text-sm font-medium text-muted-foreground/50 cursor-not-allowed"
+              >
+                {ctaLabel}
+                <ArrowRight className="size-3.5" />
+              </button>
+            ) : (
+              <WhatsAppLink
+                source="service-card"
+                detail={service.title}
+                message={ctaMessage.replace('{service}', service.title)}
+                // Stop the mobile card-tap handler from also toggling the card.
+                onClick={(event) => event.stopPropagation()}
+                className={`inline-flex items-center gap-1.5 h-9 sm:h-8 px-3 -mr-3 rounded-md text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                  isMobile
+                    ? showActive
+                      ? "text-accent"
+                      : "text-muted-foreground"
+                    : "text-muted-foreground group-hover:text-accent"
+                }`}
+              >
+                {ctaLabel}
+                <ArrowRight className="size-3.5" />
+              </WhatsAppLink>
+            )}
+          </div>
 
           {/* Accent line - gradient border bottom (transform only - layout safe) */}
           {!service.disabled && (

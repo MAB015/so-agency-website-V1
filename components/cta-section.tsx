@@ -44,14 +44,14 @@ export function CTASection({ dict }: { dict: Dictionary }) {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="comet-border rounded-lg">
                   <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all text-base px-8">
-                    <WhatsAppLink source="cta-primary">
+                    <WhatsAppLink source="cta-primary" message={dict.cta.whatsappMessage}>
                       {dict.cta.ctaPrimary}
                       <ArrowRight className="size-4 ml-2" />
                     </WhatsAppLink>
                   </Button>
                 </div>
                 <Button asChild variant="outline" size="lg" className="text-base px-8 border-foreground/30 hover:border-accent hover:shadow-lg hover:shadow-accent/40">
-                  <WhatsAppLink source="cta-secondary">
+                  <WhatsAppLink source="cta-secondary" message={dict.cta.whatsappMessage}>
                     {dict.cta.ctaSecondary}
                   </WhatsAppLink>
                 </Button>

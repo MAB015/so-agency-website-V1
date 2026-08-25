@@ -24,6 +24,10 @@ export interface Dictionary {
   services: {
     sectionTitle: string
     sectionDescription: string
+    /** Label of the per-card WhatsApp button. */
+    cta: string
+    /** WhatsApp message for the per-card button. `{service}` is replaced with the title. */
+    ctaMessage: string
     items: {
       title: string
       description: string
@@ -78,6 +82,8 @@ export interface Dictionary {
     ctaPrimary: string
     ctaSecondary: string
     responseTime: string
+    /** WhatsApp message for the contact section's buttons. */
+    whatsappMessage: string
   }
   faq: {
     sectionTitle: string

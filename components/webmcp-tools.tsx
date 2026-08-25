@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import type { Dictionary } from "@/lib/i18n/types"
-import { WHATSAPP_URL, trackContactClick } from "@/lib/contact"
+import { whatsappUrl, trackContactClick } from "@/lib/contact"
 
 // Section ids rendered on the page, matching dict.navbar.links hrefs.
 const SECTIONS = ["services", "process", "team", "faq", "contact"] as const
@@ -158,13 +158,14 @@ export function WebMCPTools({ dict }: { dict: Dictionary }) {
         execute: async () => {
           // An agent-driven contact is still a contact — report it like any other CTA.
           trackContactClick("agent-tool")
-          window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer")
+          const url = whatsappUrl(dict.cta.whatsappMessage)
+          window.open(url, "_blank", "noopener,noreferrer")
           return text(
             `${
               isSpanish
                 ? "Se abrió WhatsApp para contactar a SO Agency. Normalmente responden en menos de 24 horas."
                 : "Opened WhatsApp to contact SO Agency. They typically respond within 24 hours."
-            }\n${WHATSAPP_URL}`,
+            }\n${url}`,
           )
         },
       },

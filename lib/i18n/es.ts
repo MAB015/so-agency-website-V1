@@ -32,6 +32,9 @@ export const es: Dictionary = {
     sectionTitle: 'Soluciones Estratégicas',
     sectionDescription:
       'Servicios especializados diseñados para garantizar el éxito total de tu negocio en todos los canales digitales.',
+    cta: 'Hablemos',
+    ctaMessage:
+      'Hola SO Agency 👋\n\nMe interesa el servicio de *{service}*.\n\nMi proyecto se trata de:',
     items: [
       {
         title: 'Diseño & Desarrollo Web',
@@ -186,6 +189,8 @@ export const es: Dictionary = {
     ctaPrimary: 'Hagámoslo Realidad',
     ctaSecondary: 'Enviar un Mensaje',
     responseTime: 'Normalmente respondemos en menos de 24 horas',
+    whatsappMessage:
+      'Hola SO Agency 👋\n\nQuiero agendar una llamada de diagnóstico gratuita.\n\nMi proyecto se trata de:',
   },
   faq: {
     sectionTitle: 'Preguntas Frecuentes',

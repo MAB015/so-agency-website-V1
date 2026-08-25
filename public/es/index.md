@@ -9,7 +9,7 @@
 Transformamos tus ideas de negocio en presencias digitales de alto rendimiento — desde
 sitios web impactantes hasta identidades de marca completas.
 
-- Agenda tu Diagnóstico Gratis → <https://wa.me/message/5MH2JY5B4ERVJ1>
+- Agenda tu Diagnóstico Gratis → <https://wa.me/573159970541>
 - Ver Nuestros Servicios → [#services](#soluciones-estratégicas)
 
 ## Soluciones Estratégicas
@@ -165,8 +165,8 @@ español, por lo que la distancia nunca es una barrera para un gran trabajo.
 Hablemos de tu proyecto y cómo podemos ayudarte a alcanzar nuevas alturas. Agenda una
 llamada de diagnóstico gratuita hoy.
 
-- Hagámoslo Realidad → <https://wa.me/message/5MH2JY5B4ERVJ1>
-- Enviar un Mensaje → <https://wa.me/message/5MH2JY5B4ERVJ1>
+- Hagámoslo Realidad → <https://wa.me/573159970541>
+- Enviar un Mensaje → <https://wa.me/573159970541>
 
 Normalmente respondemos en menos de 24 horas.
 
