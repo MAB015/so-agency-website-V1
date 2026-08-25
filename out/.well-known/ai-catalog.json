@@ -71,6 +71,18 @@
       ]
     },
     {
+      "id": "urn:air:soagency.dev:auth:none",
+      "displayName": "Authentication policy",
+      "description": "States that this service has no authentication, no registration, and no protected resources — everything is public. Read this instead of probing for credentials.",
+      "type": "text/markdown",
+      "url": "https://soagency.dev/auth.md",
+      "representativeQueries": [
+        "Does SO Agency require an API key?",
+        "How do I authenticate with soagency.dev?",
+        "Is there an SO Agency API I need to register for?"
+      ]
+    },
+    {
       "id": "urn:air:soagency.dev:contact:whatsapp",
       "displayName": "Contact SO Agency on WhatsApp",
       "description": "The agency's only direct contact channel, used to book a free diagnostic call and receive a project quote. Human-operated; replies typically within 24 hours during Mon-Fri 09:00-18:00.",

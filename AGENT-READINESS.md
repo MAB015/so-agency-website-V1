@@ -35,7 +35,7 @@ the discovery files live in `public/.well-known/`.
 | 7 | API Catalog (RFC 9727) | **N/A** | No API exists to catalog |
 | 8 | OAuth/OIDC discovery | **N/A** | No authorization server |
 | 9 | OAuth Protected Resource Metadata (RFC 9728) | **N/A** | No protected resources |
-| 10 | `auth.md` | **N/A** | Nothing for an agent to register against |
+| 10 | `auth.md` | **Published, still red** | `public/auth.md` — truthful, but cannot pass; see below |
 | 11 | MCP Server Card (SEP-1649) | **N/A** | No MCP server is operated |
 
 Also fixed: `public/robots.txt` contained `Disallow: /.well-known/`, which blocked every
@@ -63,6 +63,31 @@ file in this list from compliant crawlers.
   `get_pricing_guidance`, `answer_faq`, `navigate_to_section`, `open_contact`) exposed via
   `navigator.modelContext`. Feature-detected; an inert no-op elsewhere. Content is read
   from `lib/i18n/` rather than duplicated.
+
+## Why `auth.md` stays red on purpose
+
+`public/auth.md` exists and is truthful, but it **will not pass the audit, and that is
+intended**. Do not "fix" it.
+
+The `auth.md` specification describes how agents register and obtain credentials to act on
+a user's behalf. Its check requires, when no OAuth metadata is present, that the file
+"document registration or provisioning endpoint(s), list supported method(s), and explain
+credential use" — and it states outright that a completely unauthenticated service will
+fail, because it cannot satisfy those minimums. The spec has **no vocabulary for declaring
+that a service has no authentication**.
+
+This site has no API, no authorization server, no protected resource, and no accounts.
+Passing would mean inventing a `register_uri` and credential types for machinery that does
+not exist, and any agent following them would get a 404.
+
+So `auth.md` states the truth instead: nothing here is gated, here is the public surface.
+That is worth publishing on its own — it stops an agent probing for credentials — even
+though the score does not move. The same reasoning is why
+`/.well-known/oauth-protected-resource` and `/.well-known/oauth-authorization-server` are
+absent.
+
+If SO Agency ever ships an authenticated API, replace `auth.md` with a conforming profile
+and publish the two OAuth documents for real.
 
 ## Maintenance
 
