@@ -30,7 +30,7 @@ the discovery files live in `public/.well-known/`.
 | 2 | ARD capability manifest | **Done** | `public/.well-known/ai-catalog.json` |
 | 3 | Agent Skills index | **Done** | `public/.well-known/agent-skills/` |
 | 4 | WebMCP browser tools | **Done** | `components/webmcp-tools.tsx` |
-| 5 | Markdown for Agents | **Partial** | `public/en/index.md`, `public/es/index.md` + a Cloudflare dashboard toggle |
+| 5 | Markdown for Agents | **Partial — blocked on plan** | `public/en/index.md`, `public/es/index.md`; edge negotiation needs Cloudflare Pro+ |
 | 6 | DNS-AID records | **Manual** | Cloudflare DNS — see below |
 | 7 | API Catalog (RFC 9727) | **N/A** | No API exists to catalog |
 | 8 | OAuth/OIDC discovery | **N/A** | No authorization server |
@@ -87,9 +87,40 @@ the two markdown twins, and `SKILL.md`. Changing a price means updating all of t
 Neither can be done from this repo.
 
 **Markdown for Agents** — gives true `Accept: text/markdown` negotiation, which a static
-export cannot do on its own. Requires `soagency.dev` proxied (orange cloud) through
-Cloudflare. Dashboard → the `soagency.dev` zone → Settings / Fundamentals → enable
-**Markdown for Agents**. Verify:
+export cannot do on its own. Cloudflare converts the HTML to markdown at the edge.
+
+**Requires a Pro, Business, Enterprise, or SSL for SaaS plan — not available on Free**
+(no extra cost within those plans), and the zone must be proxied through Cloudflare.
+
+> **`soagency.dev` is on the Free plan as of 2026-08-25, so this cannot be enabled.** The
+> toggle will not appear in the dashboard. Do not go looking for it — revisit only if the
+> zone is upgraded. Everything below documents what to do in that case.
+>
+> Little is lost meanwhile: the hand-written markdown twins cover the same need, are
+> advertised via `rel="alternate"; type="text/markdown"` in the `Link` header, and carry no
+> navigation noise or conversion artifacts. The only difference is that an agent must
+> follow the `Link` header instead of getting markdown straight from `/en/`.
+
+Dashboard → account → the `soagency.dev` zone → **AI Crawl Control** → enable the
+**Markdown for Agents** toggle. Equivalent API call:
+
+```bash
+curl -X PATCH "https://api.cloudflare.com/client/v4/zones/{zone_id}/settings/content_converter" \
+  -H "Authorization: Bearer {token}" \
+  -H "Content-Type: application/json" \
+  --data '{"value":"on"}'
+```
+
+To scope it to specific hostnames or paths instead of the whole zone, use
+Rules → Overview → Create rule → Configuration Rules.
+
+When enabled, a request carrying `Accept: text/markdown` returns
+`Content-Type: text/markdown; charset=utf-8` plus `x-markdown-tokens`,
+`x-original-tokens`, and `Vary: Accept`. Output is YAML frontmatter (title, description,
+image from meta tags), the body as markdown, and any JSON-LD preserved in a fenced block.
+Only HTML is converted, and origin responses over 2 MB are skipped.
+
+Verify:
 
 ```bash
 curl -sI -H "Accept: text/markdown" https://soagency.dev/en/ | grep -i 'content-type\|x-markdown-tokens'
