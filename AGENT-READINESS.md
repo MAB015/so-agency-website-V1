@@ -45,9 +45,12 @@ file in this list from compliant crawlers.
 
 - **`public/_headers`** — RFC 8288 `Link` headers on every page. Relations used are all
   IANA-registered (`service-desc`, `service-doc`, `describedby`, `alternate`) and every
-  target resolves. `rel="api-catalog"` is intentionally not emitted. Cloudflare Pages does
-  not reliably append repeated header names, so each rule uses a single comma-separated
-  `Link:` line.
+  target resolves. `rel="api-catalog"` is intentionally not emitted.
+
+  **Cloudflare Pages merges every matching rule.** The `/*` values are already present on
+  `/en/` and `/es/`, so the locale rules add only their own `alternate` links — repeating
+  the shared ones there emits each relation twice. Within a single rule, keep all values on
+  one comma-separated `Link:` line.
 - **`public/llms.txt`** — condensed overview: services, pricing bands, timelines, process,
   selected work, contact.
 - **`public/en/index.md`, `public/es/index.md`** — full page content as markdown, the
@@ -114,13 +117,20 @@ curl -s  https://soagency.dev/llms.txt
 curl -s  https://soagency.dev/.well-known/agent-skills/engage-so-agency/SKILL.md | sha256sum
 ```
 
-**Known caveat:** `public/_redirects` 301s `/` to `/en/`, and Cloudflare Pages may not
-attach `_headers` to a redirect response. Check both the redirect and the destination:
+**Verified behaviour** (checked against the live deploy, 2026-08-25):
+
+- `public/_redirects` 301s `/` to `/en/`, and Cloudflare Pages **does** attach `_headers`
+  to that 301 response. An audit that does not follow redirects still sees the `Link`
+  header on the homepage. No workaround needed.
+- `.md` files are served as `text/markdown; charset=utf-8` and `.json` as
+  `application/json`, both derived from the file extension.
+- `Access-Control-Allow-Origin: *` is present on `/.well-known/*`.
+
+Watch for **duplicated relations** — the symptom that a locale rule is repeating what `/*`
+already provides:
 
 ```bash
-curl -sI  https://soagency.dev/ | grep -i '^link:\|^location:'
-curl -sIL https://soagency.dev/ | grep -i '^link:'
+curl -sI https://soagency.dev/es/ | grep -i '^link:' | tr ',' '\n' | nl
 ```
 
-If an audit that does not follow redirects still reports no `Link` headers, the fix is to
-serve real content at `/` instead of redirecting — not to paper over it.
+Each relation should appear exactly once.

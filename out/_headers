@@ -5,18 +5,20 @@
 # Deliberately absent: rel="api-catalog" — this is a static site with no API. See
 # AGENT-READINESS.md.
 #
-# One Link: line per rule, comma-separated. Cloudflare Pages does not reliably append
-# repeated header names, so do not split these across multiple lines.
+# Verified on deploy: Cloudflare Pages MERGES every matching rule, so the /* values below
+# are already present on /en/ and /es/. The locale rules therefore only add what is
+# specific to them — repeating the shared links there emits them twice.
+# Within a single rule, keep all values on one comma-separated Link: line.
 
 /*
   Link: </.well-known/ai-catalog.json>; rel="service-desc"; type="application/json", </llms.txt>; rel="service-doc"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"
   X-Robots-Tag: index, follow
 
 /en/*
-  Link: </.well-known/ai-catalog.json>; rel="service-desc"; type="application/json", </llms.txt>; rel="service-doc"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </en/index.md>; rel="alternate"; type="text/markdown"; hreflang="en", </es/>; rel="alternate"; hreflang="es"
+  Link: </en/index.md>; rel="alternate"; type="text/markdown"; hreflang="en", </es/>; rel="alternate"; hreflang="es"
 
 /es/*
-  Link: </.well-known/ai-catalog.json>; rel="service-desc"; type="application/json", </llms.txt>; rel="service-doc"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </es/index.md>; rel="alternate"; type="text/markdown"; hreflang="es", </en/>; rel="alternate"; hreflang="en"
+  Link: </es/index.md>; rel="alternate"; type="text/markdown"; hreflang="es", </en/>; rel="alternate"; hreflang="en"
 
 # ARD requires the catalog to be cross-origin readable. Content-Type is derived from
 # the file extension by Cloudflare Pages (.json -> application/json).
