@@ -1,0 +1,9 @@
+# Agent-discovery files must be byte-identical locally and on the Cloudflare Pages build
+# (Linux) — the SKILL.md sha256 in .well-known/agent-skills/index.json depends on it.
+# Without this, core.autocrlf=true on Windows checkouts changes the bytes and the digest
+# no longer verifies.
+*.md            text eol=lf
+*.txt           text eol=lf
+*.json          text eol=lf
+/public/_headers   text eol=lf
+/public/_redirects text eol=lf

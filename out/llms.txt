@@ -1,0 +1,72 @@
+# SO Agency
+
+> SO Agency is a bilingual (English/Spanish) digital agency that transforms business ideas
+> into high-performing digital presences — from websites and e-commerce stores to complete
+> brand identity systems. Founded 2023, operating remotely and serving clients worldwide,
+> with a focus on Latin America, the United States, and Europe.
+
+Tagline: Design. Build. Launch.
+
+The site is a single marketing page published in two locales. There is no public API, no
+authenticated area, and no user accounts. Contact happens over WhatsApp.
+
+## Services
+
+- **Web Design & Development** — Custom, performance-driven sites built on modern stacks.
+- **UX/UI Design** — Intuitive, conversion-focused interfaces.
+- **E-Commerce** — End-to-end online store solutions for frictionless transactions.
+- **Branding & Identity** — Full visual identity systems: logos, guidelines, typography, color.
+- **Social Media Marketing** — Content strategy and data-driven campaigns that generate leads.
+- **AI Automation** — Workflow automation and intelligent tooling. Currently in development.
+
+## Pricing and timelines
+
+- Web design and development projects start from **$1,500 USD**.
+- Branding packages start from **$800 USD**.
+- Typical delivery is **3 to 6 weeks**. A landing page or portfolio can ship in ~2 weeks;
+  a full e-commerce build or brand identity system typically takes 4 to 8 weeks.
+- Every project is scoped individually. Flexible payment plans are available.
+- Quotes are given after a free diagnostic call.
+
+## How we work
+
+1. **Discovery** (Pre-Flight Check) — Understand goals, audience, and competitive landscape.
+2. **Strategy** (Mission Planning) — A roadmap with defined milestones and measurable outcomes.
+3. **Launch** (Liftoff) — Execution and delivery on agreed timelines.
+4. **Growth** (Orbit) — Ongoing support and optimization post-launch.
+
+## Selected work
+
+- [La Feika](https://lafeika.com/): E-commerce connecting Chinese fresh food suppliers with Latin American markets.
+- [It's Fuluz Time](https://itsfuluztime.com/): Cruelty-free leather goods store.
+- [Yaku Adventures](https://yakuadventures.com/): Adventure tourism and hiking experiences in South America.
+- [Singing Rooster](https://singingrooster.org/): Premium coffee, chocolate, and artisan marketplace.
+
+## Pages
+
+- [Home (English)](https://soagency.dev/en/): Full marketing page in English.
+- [Home (Spanish)](https://soagency.dev/es/): Full marketing page in Spanish.
+- [Overview in Markdown (English)](https://soagency.dev/en/index.md): Complete page content as plain markdown.
+- [Overview in Markdown (Spanish)](https://soagency.dev/es/index.md): Complete page content as plain markdown.
+
+## Machine-readable resources
+
+- [ARD capability manifest](https://soagency.dev/.well-known/ai-catalog.json): Agentic Resource Discovery catalog of everything listed here.
+- [Agent skills index](https://soagency.dev/.well-known/agent-skills/index.json): Discovery index for published agent skills.
+- [Engage SO Agency skill](https://soagency.dev/.well-known/agent-skills/engage-so-agency/SKILL.md): How to scope and request a quote.
+- [Sitemap](https://soagency.dev/sitemap.xml): All indexable URLs with hreflang alternates.
+
+## Contact
+
+- [WhatsApp](https://wa.me/message/5MH2JY5B4ERVJ1): The only direct contact channel. Used for free diagnostic calls and quotes.
+- [Instagram](https://www.instagram.com/soagency.dev): Social profile.
+- Languages: English and Spanish.
+- Typical response time: within 24 hours.
+- Business hours: Monday to Friday, 09:00–18:00.
+
+## Notes for agents
+
+- Founding partners: Oscar and Miguel.
+- There is no booking system, contact form, or search endpoint on this site. To start a
+  conversation, direct the user to the WhatsApp link above.
+- Pricing figures are starting points, not quotes. Do not present them as final prices.

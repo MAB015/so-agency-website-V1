@@ -1,0 +1,87 @@
+{
+  "specVersion": "0.1",
+  "host": {
+    "name": "SO Agency",
+    "url": "https://soagency.dev",
+    "description": "Bilingual (English/Spanish) digital agency building websites, e-commerce stores, and brand identity systems. Founded 2023, operating remotely for clients in Latin America, the United States, and Europe. Static marketing site: no public API, no authentication, no user accounts.",
+    "contact": "https://wa.me/message/5MH2JY5B4ERVJ1"
+  },
+  "entries": [
+    {
+      "id": "urn:air:soagency.dev:content:llms-txt",
+      "displayName": "SO Agency summary for LLMs",
+      "description": "Condensed overview of the agency: services, pricing bands, delivery timelines, process, selected work, and contact channel. Start here.",
+      "type": "text/plain",
+      "url": "https://soagency.dev/llms.txt",
+      "representativeQueries": [
+        "What does SO Agency do?",
+        "How much does a website cost with SO Agency?",
+        "How long does SO Agency take to deliver a project?",
+        "How do I contact SO Agency?"
+      ]
+    },
+    {
+      "id": "urn:air:soagency.dev:content:overview-en",
+      "displayName": "SO Agency overview (English, Markdown)",
+      "description": "Complete English marketing page content as plain markdown: services, process, benefits, portfolio, team, and full FAQ.",
+      "type": "text/markdown",
+      "url": "https://soagency.dev/en/index.md",
+      "representativeQueries": [
+        "What services does SO Agency offer?",
+        "Show me SO Agency's portfolio of past projects",
+        "Who founded SO Agency?",
+        "What is SO Agency's design and development process?"
+      ]
+    },
+    {
+      "id": "urn:air:soagency.dev:content:overview-es",
+      "displayName": "SO Agency overview (Spanish, Markdown)",
+      "description": "Contenido completo de la página de marketing en español como markdown: servicios, proceso, beneficios, portafolio, equipo y preguntas frecuentes.",
+      "type": "text/markdown",
+      "url": "https://soagency.dev/es/index.md",
+      "representativeQueries": [
+        "¿Qué servicios ofrece SO Agency?",
+        "¿Cuánto cuesta un sitio web con SO Agency?",
+        "Agencia de diseño web que hable español",
+        "¿Cuánto tarda SO Agency en entregar un proyecto?"
+      ]
+    },
+    {
+      "id": "urn:air:soagency.dev:skills:index",
+      "displayName": "SO Agency agent skills index",
+      "description": "Discovery index of agent skills published by SO Agency, per the Agent Skills Discovery RFC.",
+      "type": "application/json",
+      "url": "https://soagency.dev/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "What agent skills does SO Agency publish?",
+        "How do I request a quote from SO Agency?",
+        "Help me scope a web project with SO Agency"
+      ]
+    },
+    {
+      "id": "urn:air:soagency.dev:content:sitemap",
+      "displayName": "SO Agency sitemap",
+      "description": "All indexable URLs with hreflang alternates for the English and Spanish locales.",
+      "type": "application/xml",
+      "url": "https://soagency.dev/sitemap.xml",
+      "representativeQueries": [
+        "What pages exist on soagency.dev?",
+        "List all URLs on the SO Agency website",
+        "Which languages is soagency.dev available in?"
+      ]
+    },
+    {
+      "id": "urn:air:soagency.dev:contact:whatsapp",
+      "displayName": "Contact SO Agency on WhatsApp",
+      "description": "The agency's only direct contact channel, used to book a free diagnostic call and receive a project quote. Human-operated; replies typically within 24 hours during Mon-Fri 09:00-18:00.",
+      "type": "text/html",
+      "url": "https://wa.me/message/5MH2JY5B4ERVJ1",
+      "representativeQueries": [
+        "How do I get in touch with SO Agency?",
+        "Book a free diagnostic call with SO Agency",
+        "I want a quote for a website from SO Agency",
+        "Contactar a SO Agency"
+      ]
+    }
+  ]
+}

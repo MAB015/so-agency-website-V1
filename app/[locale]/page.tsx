@@ -11,6 +11,7 @@ import { Team } from '@/components/team'
 import { FAQ } from '@/components/faq'
 import { CTASection } from '@/components/cta-section'
 import { Footer } from '@/components/footer'
+import { WebMCPTools } from '@/components/webmcp-tools'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -32,6 +33,7 @@ export default async function LocalePage({ params }: Props) {
 
   return (
     <main className="min-h-screen">
+      <WebMCPTools dict={dict} />
       <Navbar dict={dict} />
       <Hero dict={dict} />
       <Services dict={dict} />

@@ -1,0 +1,29 @@
+# Cloudflare Pages response headers
+#
+# RFC 8288 Link headers pointing agents at machine-readable descriptions of the site.
+# Every relation below is IANA-registered and resolves to a file that actually exists.
+# Deliberately absent: rel="api-catalog" — this is a static site with no API. See
+# AGENT-READINESS.md.
+#
+# One Link: line per rule, comma-separated. Cloudflare Pages does not reliably append
+# repeated header names, so do not split these across multiple lines.
+
+/*
+  Link: </.well-known/ai-catalog.json>; rel="service-desc"; type="application/json", </llms.txt>; rel="service-doc"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"
+  X-Robots-Tag: index, follow
+
+/en/*
+  Link: </.well-known/ai-catalog.json>; rel="service-desc"; type="application/json", </llms.txt>; rel="service-doc"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </en/index.md>; rel="alternate"; type="text/markdown"; hreflang="en", </es/>; rel="alternate"; hreflang="es"
+
+/es/*
+  Link: </.well-known/ai-catalog.json>; rel="service-desc"; type="application/json", </llms.txt>; rel="service-doc"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </es/index.md>; rel="alternate"; type="text/markdown"; hreflang="es", </en/>; rel="alternate"; hreflang="en"
+
+# ARD requires the catalog to be cross-origin readable. Content-Type is derived from
+# the file extension by Cloudflare Pages (.json -> application/json).
+/.well-known/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
