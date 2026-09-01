@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Rocket } from "lucide-react"
 import { useHeroAnimation } from "@/hooks/use-gsap-animations"
+import { BRAND_TAGLINE } from "@/lib/brand"
 import type { Dictionary } from "@/lib/i18n/types"
 
 export function Hero({ dict }: { dict: Dictionary }) {
@@ -29,7 +30,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
         {/* Slogan */}
         <div className="hero-subtitle mb-6 opacity-0">
           <p className="font-[family-name:var(--font-roboto)] text-xl sm:text-2xl md:text-3xl font-bold tracking-widest uppercase text-foreground">
-            {dict.hero.slogan}
+            {BRAND_TAGLINE}
           </p>
         </div>
 

@@ -177,10 +177,15 @@ export function CustomCursor() {
         }
       `}</style>
 
-      {/* Main cursor */}
+      {/* Main cursor.
+          Its z-index sits above every other layer: this stands in for the pointer, so
+          nothing may paint over it. It used to be z-[9999], tied with the right-click CTA
+          (right-click-cta.tsx), and a tie is broken by DOM order - the CTA mounts later in
+          app/layout.tsx, so it covered the rocket.
+          pointer-events-none keeps being on top from intercepting the CTA's clicks. */}
       <div
         ref={cursorRef}
-        className={`fixed pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
+        className={`fixed pointer-events-none z-[10000] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{ left: 0, top: 0 }}

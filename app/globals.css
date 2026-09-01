@@ -145,6 +145,21 @@
   --shadow-x: var(--shadow-x);
 }
 
+/* Type scale for section sub-items (Services, Process and Benefits cards).
+   One token per semantic role rather than per size, so retuning card body copy is
+   a change here instead of a hunt across components.
+   Additive - Tailwind's default scale (text-sm, text-base...) is left untouched. */
+@theme {
+  --text-card-title-lg: 1.5rem;              /* 24px - large cards (Services) */
+  --text-card-title-lg--line-height: 1.35;
+  --text-card-title: 1.25rem;                /* 20px - four-column cards */
+  --text-card-title--line-height: 1.4;
+  --text-card-body: 1rem;                    /* 16px - card body copy */
+  --text-card-body--line-height: 1.6;
+  --text-card-meta: 0.875rem;                /* 14px - badges, step numbers, subtitles */
+  --text-card-meta--line-height: 1.4;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

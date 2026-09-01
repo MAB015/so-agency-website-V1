@@ -1,4 +1,4 @@
-# SO Agency — Design. Build. Launch.
+# SO Agency — DESIGN. BUILD. LAUNCH.
 
 > Markdown version of <https://soagency.dev/en/>. Spanish: <https://soagency.dev/es/index.md>
 

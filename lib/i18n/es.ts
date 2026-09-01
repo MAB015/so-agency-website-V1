@@ -22,7 +22,6 @@ export const es: Dictionary = {
   hero: {
     badge: 'Tu Socio de Lanzamiento Digital',
     headline: 'Tu visión, nuestro diseño estelar',
-    slogan: 'Diseña. Construye. Despega.',
     description:
       'Transformamos tus ideas de negocio en presencias digitales de alto rendimiento — desde sitios web impactantes hasta identidades de marca completas.',
     ctaPrimary: 'Agenda tu Diagnóstico Gratis',
@@ -234,18 +233,10 @@ export const es: Dictionary = {
     ],
   },
   footer: {
-    tagline: 'Diseña. Construye. Lanza.',
     description:
       'Tu socio de lanzamiento digital. Ayudamos a empresas a crecer con branding estratégico, desarrollo web y marketing.',
+    servicesTitle: 'Servicios',
     columns: [
-      {
-        title: 'Servicios',
-        links: [
-          { label: 'Diseño & Desarrollo Web', href: '#services' },
-          { label: 'Marca e Identidad', href: '#services' },
-          { label: 'E-Commerce', href: '#services' },
-        ],
-      },
       {
         title: 'Empresa',
         links: [

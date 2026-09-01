@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/i18n/types'
 import { WHATSAPP_URL } from '@/lib/contact'
+import { BRAND_TITLE } from '@/lib/brand'
 
 type Props = {
   locale: Locale
@@ -189,7 +190,7 @@ export function SchemaMarkup({ locale, baseUrl }: Props) {
       '@type': 'WebPage',
       '@id': `${pageUrl}#webpage`,
       url: pageUrl,
-      name: locale === 'en' ? 'SO Agency | Design. Build. Launch.' : 'SO Agency | Diseña. Construye. Lanza.',
+      name: BRAND_TITLE,
       description,
       isPartOf: { '@id': `${baseUrl}/#website` },
       about: { '@id': `${baseUrl}/#organization` },

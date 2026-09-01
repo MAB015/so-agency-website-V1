@@ -1,4 +1,4 @@
-# SO Agency — Diseña. Construye. Despega.
+# SO Agency — DESIGN. BUILD. LAUNCH.
 
 > Versión en markdown de <https://soagency.dev/es/>. English: <https://soagency.dev/en/index.md>
 

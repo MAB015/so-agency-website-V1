@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { BRAND_TITLE } from '@/lib/brand'
 
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
@@ -26,12 +27,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: 'SO Agency | Design. Build. Launch.',
+  title: BRAND_TITLE,
   description: 'We transform your business ideas into high-performing digital presences — from stunning websites to complete brand identities. Your digital launch partner.',
   keywords: ['web design', 'digital agency', 'web development', 'branding', 'digital marketing', 'SO Agency'],
   generator: 'v0.app',
   openGraph: {
-    title: 'SO Agency | Design. Build. Launch.',
+    title: BRAND_TITLE,
     description: 'We transform your business ideas into high-performing digital presences — from stunning websites to complete brand identities.',
     url: BASE_URL,
     siteName: 'SO Agency',
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SO Agency | Design. Build. Launch.',
+    title: BRAND_TITLE,
     description: 'We transform your business ideas into high-performing digital presences — from stunning websites to complete brand identities.',
   },
   robots: {
@@ -71,7 +72,7 @@ export default function RootLayout({
         <meta property="og:image" content={`${BASE_URL}/og-image.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="SO Agency | Design. Build. Launch." />
+        <meta property="og:image:alt" content={BRAND_TITLE} />
         <meta name="twitter:image" content={`${BASE_URL}/og-image.png`} />
       </head>
       <body className={`font-sans antialiased ${_audiowide.variable} ${_roboto.variable}`}>

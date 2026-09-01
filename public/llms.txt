@@ -5,7 +5,7 @@
 > brand identity systems. Founded 2023, operating remotely and serving clients worldwide,
 > with a focus on Latin America, the United States, and Europe.
 
-Tagline: Design. Build. Launch.
+Tagline: DESIGN. BUILD. LAUNCH.
 
 The site is a single marketing page published in two locales. There is no public API, no
 authenticated area, and no user accounts. Contact happens over WhatsApp.

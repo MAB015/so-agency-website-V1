@@ -132,13 +132,13 @@ function BenefitCard({
         </div>
 
         <h3
-          className={`text-lg font-semibold mb-2 transition-colors ${
+          className={`text-card-title font-semibold mb-2 transition-colors ${
             isMobile ? (showActive ? "text-[#FEC700]" : "text-foreground") : "text-foreground group-hover:text-[#FEC700]"
           }`}
         >
           {benefit.title}
         </h3>
-        <p className="text-sm text-muted-foreground">{benefit.description}</p>
+        <p className="text-card-body text-muted-foreground">{benefit.description}</p>
       </div>
     </ScrollReveal>
   )

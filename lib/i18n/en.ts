@@ -22,7 +22,6 @@ export const en: Dictionary = {
   hero: {
     badge: 'Your Digital Launch Partner',
     headline: 'Your vision, our stellar design',
-    slogan: 'Design. Build. Launch.',
     description:
       'We transform your business ideas into high-performing digital presences — from stunning websites to complete brand identities.',
     ctaPrimary: 'Book Your Free Diagnostic',
@@ -233,18 +232,10 @@ export const en: Dictionary = {
     ],
   },
   footer: {
-    tagline: 'Design. Build. Launch.',
     description:
       'Your digital launch partner. We help businesses launch and grow with strategic branding, web development, and marketing.',
+    servicesTitle: 'Services',
     columns: [
-      {
-        title: 'Services',
-        links: [
-          { label: 'Web Design & Dev', href: '#services' },
-          { label: 'Branding & Identity', href: '#services' },
-          { label: 'E-Commerce', href: '#services' },
-        ],
-      },
       {
         title: 'Company',
         links: [

@@ -16,7 +16,6 @@ export interface Dictionary {
   hero: {
     badge: string
     headline: string
-    slogan: string
     description: string
     ctaPrimary: string
     ctaSecondary: string
@@ -94,8 +93,9 @@ export interface Dictionary {
     }[]
   }
   footer: {
-    tagline: string
     description: string
+    /** Heading for the services column, whose links come from `services.items`. */
+    servicesTitle: string
     columns: {
       title: string
       links: { label: string; href: string }[]

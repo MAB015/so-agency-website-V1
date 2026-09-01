@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/i18n/types'
 import { locales } from '@/lib/i18n'
+import { BRAND_TITLE } from '@/lib/brand'
 import { SchemaMarkup } from '@/components/schema-markup'
 
 const BASE_URL = 'https://soagency.dev'
@@ -19,17 +20,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = resolvedParams?.locale || 'en'
   const lang = locale as Locale
 
-  const titles: Record<Locale, string> = {
-    en: 'SO Agency | Design. Build. Launch.',
-    es: 'SO Agency | Diseña. Construye. Lanza.',
-  }
   const descriptions: Record<Locale, string> = {
     en: 'We transform your business ideas into high-performing digital presences — from stunning websites to complete brand identities.',
     es: 'Transformamos tus ideas de negocio en presencias digitales de alto rendimiento — desde sitios web impactantes hasta identidades de marca completas.',
   }
 
   return {
-    title: titles[lang] ?? titles.en,
+    title: BRAND_TITLE,
     description: descriptions[lang] ?? descriptions.en,
     alternates: {
       canonical: `${BASE_URL}/${lang}/`,

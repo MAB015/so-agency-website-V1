@@ -1,6 +1,6 @@
 "use client"
 
-import { Code, Palette, ShoppingCart, Fingerprint, Megaphone, Bot, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -8,13 +8,13 @@ import { useStaggerChildren } from "@/hooks/use-gsap-animations"
 import { TiltCard } from "@/components/tilt-card"
 import { SectionHeader, ScrollReveal } from "@/components/scroll-reveal"
 import { WhatsAppLink } from "@/components/whatsapp-link"
+import { serviceIcons, DISABLED_SERVICE_INDEX } from "@/lib/service-icons"
 import type { Dictionary } from "@/lib/i18n/types"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const serviceIcons = [Code, Palette, ShoppingCart, Fingerprint, Megaphone, Bot]
 const serviceStyles = [
   { color: "text-cyan-400", bgColor: "bg-cyan-400/10", borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-cyan-400/30" },
   { color: "text-accent", bgColor: "bg-accent/10", borderGlow: "hover:shadow-[0_0_30px_-5px] hover:shadow-accent/30" },
@@ -42,7 +42,7 @@ export function Services({ dict }: { dict: Dictionary }) {
     ...item,
     icon: serviceIcons[i],
     ...serviceStyles[i],
-    disabled: i === 5,
+    disabled: i === DISABLED_SERVICE_INDEX,
   }))
 
   return (
@@ -198,7 +198,7 @@ function ServiceCard({
         >
           {/* Badge */}
           {service.badge && (
-            <span className="absolute top-6 right-6 text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+            <span className="absolute top-6 right-6 text-card-meta px-3 py-1 rounded-full bg-muted text-muted-foreground">
               {service.badge}
             </span>
           )}
@@ -222,13 +222,13 @@ function ServiceCard({
 
           {/* Content */}
           <h3
-            className={`text-xl font-semibold mb-3 ${
+            className={`text-card-title-lg font-semibold mb-3 ${
               service.disabled ? "text-muted-foreground" : "text-foreground"
             }`}
           >
             {service.title}
           </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-card-body text-muted-foreground">
             {service.description}
           </p>
 

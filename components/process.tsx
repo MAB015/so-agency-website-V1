@@ -123,11 +123,11 @@ function ProcessStep({
           </div>
 
           {/* Number badge */}
-          <span className="text-xs font-mono text-primary mb-2">{step.number}</span>
+          <span className="text-card-meta font-mono text-primary mb-2">{step.number}</span>
 
           {/* Title */}
           <h3
-            className={`text-lg font-semibold mb-1 transition-colors ${
+            className={`text-card-title font-semibold mb-2 transition-colors ${
               isMobile ? (showActive ? "text-primary" : "text-foreground") : "text-foreground group-hover:text-primary"
             }`}
           >
@@ -135,10 +135,10 @@ function ProcessStep({
           </h3>
 
           {/* Subtitle */}
-          <span className="text-xs text-primary/80 uppercase tracking-wider mb-3">{step.subtitle}</span>
+          <span className="text-card-meta text-primary uppercase tracking-wider mb-3">{step.subtitle}</span>
 
           {/* Description */}
-          <p className="text-sm text-muted-foreground">{step.description}</p>
+          <p className="text-card-body text-muted-foreground">{step.description}</p>
         </div>
       </div>
     </ScrollReveal>

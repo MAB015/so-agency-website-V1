@@ -1,6 +1,8 @@
 import Image from "next/image"
 import type { Dictionary } from "@/lib/i18n/types"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { serviceIcons, DISABLED_SERVICE_INDEX } from "@/lib/service-icons"
+import { BRAND_TAGLINE } from "@/lib/brand"
 
 export function Footer({ dict }: { dict: Dictionary }) {
   return (
@@ -19,9 +21,9 @@ export function Footer({ dict }: { dict: Dictionary }) {
               />
             </a>
             <p className="font-[family-name:var(--font-roboto)] text-xl font-bold tracking-widest uppercase text-foreground mb-2">
-              {dict.footer.tagline}
+              {BRAND_TAGLINE}
             </p>
-            <p className="text-sm text-muted-foreground max-w-sm mb-6">
+            <p className="text-base text-muted-foreground max-w-sm mb-6">
               {dict.footer.description}
             </p>
             {/* Social links */}
@@ -30,7 +32,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-base text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}
                 </a>
@@ -38,16 +40,46 @@ export function Footer({ dict }: { dict: Dictionary }) {
             </div>
           </div>
 
+          {/* Services are derived from dict.services.items instead of being repeated in
+              the footer dictionary. They used to be three hand-written labels that had
+              drifted out of sync with the six real services in the section. */}
+          <div>
+            <h3 className="text-lg font-semibold text-foreground mb-4">
+              {dict.footer.servicesTitle}
+            </h3>
+            <ul className="space-y-2">
+              {dict.services.items.map((service, index) => {
+                const Icon = serviceIcons[index]
+                const isDisabled = index === DISABLED_SERVICE_INDEX
+                return (
+                  <li key={service.title}>
+                    <a
+                      href="#services"
+                      className={`flex items-center gap-2.5 text-base transition-colors ${
+                        isDisabled
+                          ? "text-muted-foreground/60 hover:text-muted-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="size-4 shrink-0" aria-hidden="true" />
+                      {service.title}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+
           {/* Link columns */}
           {dict.footer.columns.map((column) => (
             <div key={column.title}>
-              <h4 className="font-semibold text-foreground mb-4">{column.title}</h4>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{column.title}</h3>
               <ul className="space-y-2">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-base text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </a>
@@ -60,15 +92,15 @@ export function Footer({ dict }: { dict: Dictionary }) {
 
         {/* Bottom bar */}
         <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             {dict.footer.copyright}
           </p>
           <div className="flex items-center gap-6">
             <LanguageSwitcher />
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#" className="text-base text-muted-foreground hover:text-foreground transition-colors">
               {dict.footer.privacy}
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#" className="text-base text-muted-foreground hover:text-foreground transition-colors">
               {dict.footer.terms}
             </a>
           </div>
