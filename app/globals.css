@@ -172,11 +172,27 @@
   animation: astronaut-float 3.5s ease-in-out infinite;
 }
 
-/* The one animation here that actually honours this. The block near the end of
-   this file targets .scroll-reveal* classes that nothing in the app uses. */
+/* Helmet turn. The pivot sits at the collar (20, 23 in the figure's viewBox) so
+   the head swings like a head instead of sliding sideways. transform-box is set
+   explicitly rather than relying on the SVG default. The transform itself is
+   written by components/astronaut.tsx on each pointer move; this only supplies
+   the pivot and the easing that smooths the steps between frames. */
+.astronaut-head {
+  transform-box: view-box;
+  transform-origin: 20px 23px;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The only animations here that actually honour this. The block near the end of
+   this file targets .scroll-reveal* classes that nothing in the app uses.
+   The component also skips binding its pointer listener at all in this mode. */
 @media (prefers-reduced-motion: reduce) {
   .astronaut-float {
     animation: none;
+  }
+
+  .astronaut-head {
+    transition: none;
   }
 }
 
