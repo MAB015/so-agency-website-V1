@@ -4,6 +4,7 @@ import { LanguageSwitcher } from "@/components/language-switcher"
 import { serviceIcons, DISABLED_SERVICE_INDEX } from "@/lib/service-icons"
 import { BRAND_TAGLINE } from "@/lib/brand"
 import { companyLinkIcons, socialIcons } from "@/lib/footer-icons"
+import { Astronaut } from "@/components/astronaut"
 
 export function Footer({ dict }: { dict: Dictionary }) {
   return (
@@ -100,7 +101,20 @@ export function Footer({ dict }: { dict: Dictionary }) {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="relative border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* Decorative astronaut standing on the divider, centred on the page.
+              Absolutely positioned rather than dropped in as a third flex child:
+              justify-between splits the row between two items of unequal width,
+              so a middle child would sit off-centre relative to the page.
+              bottom-full puts its feet exactly on the border, and h-12 matches
+              the container's mt-12 so it fills that empty margin without
+              touching the footer's height or the columns above.
+              The wrapper centres and the child animates, deliberately split:
+              both use transform, and on one element the float would overwrite
+              -translate-x-1/2 and knock it off centre. */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-full pointer-events-none">
+            <Astronaut className="astronaut-float h-12 w-auto" />
+          </div>
           <p className="text-base text-muted-foreground">
             {dict.footer.copyright}
           </p>

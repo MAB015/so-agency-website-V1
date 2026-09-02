@@ -160,6 +160,26 @@
   --text-card-meta--line-height: 1.4;
 }
 
+/* Astronaut idle bob. Rises only, so the feet never sink below the divider the
+   figure stands on. Kept off the centring wrapper on purpose: that element uses
+   transform for -translate-x-1/2 and this animation would overwrite it. */
+@keyframes astronaut-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+.astronaut-float {
+  animation: astronaut-float 3.5s ease-in-out infinite;
+}
+
+/* The one animation here that actually honours this. The block near the end of
+   this file targets .scroll-reveal* classes that nothing in the app uses. */
+@media (prefers-reduced-motion: reduce) {
+  .astronaut-float {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
