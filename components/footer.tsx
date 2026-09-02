@@ -3,6 +3,7 @@ import type { Dictionary } from "@/lib/i18n/types"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { serviceIcons, DISABLED_SERVICE_INDEX } from "@/lib/service-icons"
 import { BRAND_TAGLINE } from "@/lib/brand"
+import { companyLinkIcons, socialIcons } from "@/lib/footer-icons"
 
 export function Footer({ dict }: { dict: Dictionary }) {
   return (
@@ -28,15 +29,19 @@ export function Footer({ dict }: { dict: Dictionary }) {
             </p>
             {/* Social links */}
             <div className="flex items-center gap-4">
-              {dict.footer.social.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-base text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {dict.footer.social.map((link) => {
+                const Icon = socialIcons[link.label]
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="flex items-center gap-2 text-base text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {Icon && <Icon className="size-4 shrink-0" aria-hidden="true" />}
+                    {link.label}
+                  </a>
+                )
+              })}
             </div>
           </div>
 
@@ -75,16 +80,20 @@ export function Footer({ dict }: { dict: Dictionary }) {
             <div key={column.title}>
               <h3 className="text-lg font-semibold text-foreground mb-4">{column.title}</h3>
               <ul className="space-y-2">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-base text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {column.links.map((link) => {
+                  const Icon = companyLinkIcons[link.href]
+                  return (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        className="flex items-center gap-2.5 text-base text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {Icon && <Icon className="size-4 shrink-0" aria-hidden="true" />}
+                        {link.label}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}
