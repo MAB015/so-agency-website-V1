@@ -8,8 +8,20 @@ import { Astronaut } from "@/components/astronaut"
 
 export function Footer({ dict }: { dict: Dictionary }) {
   return (
-    <footer className="border-t border-border bg-card/30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <footer className="relative border-t border-border bg-card/30">
+      {/* Decorative astronaut planted on the very bottom edge of the page,
+          centred on the viewport. It hangs off the <footer> rather than off the
+          bottom bar so that bottom-0 resolves to the last pixel of the document.
+          Its 48px height sits inside the wrapper's pb-16, so it fills that
+          padding without pushing the page any taller.
+          The wrapper centres and the child animates, deliberately split: both
+          need transform, and on one element the float's translateY would
+          overwrite -translate-x-1/2 and knock the figure off centre. */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none">
+        <Astronaut className="astronaut-float h-12 w-auto" />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Logo and description */}
           <div className="md:col-span-2">
@@ -101,20 +113,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
         </div>
 
         {/* Bottom bar */}
-        <div className="relative border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Decorative astronaut standing on the divider, centred on the page.
-              Absolutely positioned rather than dropped in as a third flex child:
-              justify-between splits the row between two items of unequal width,
-              so a middle child would sit off-centre relative to the page.
-              bottom-full puts its feet exactly on the border, and h-12 matches
-              the container's mt-12 so it fills that empty margin without
-              touching the footer's height or the columns above.
-              The wrapper centres and the child animates, deliberately split:
-              both use transform, and on one element the float would overwrite
-              -translate-x-1/2 and knock it off centre. */}
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-full pointer-events-none">
-            <Astronaut className="astronaut-float h-12 w-auto" />
-          </div>
+        <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-base text-muted-foreground">
             {dict.footer.copyright}
           </p>
