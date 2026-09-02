@@ -30,7 +30,7 @@ export function Process({ dict }: { dict: Dictionary }) {
           description={dict.process.sectionDescription}
         />
 
-        <div ref={stepsRef} className="grid md:grid-cols-4 gap-8">
+        <div ref={stepsRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {dict.process.steps.map((step, index) => (
             <ProcessStep
               key={step.number}
@@ -99,9 +99,11 @@ function ProcessStep({
   return (
     <ScrollReveal delay={index * 150}>
       <div ref={itemRef} onClick={handleClick} className={`timeline-item relative group ${isMobile ? "cursor-pointer" : ""}`}>
-        {/* Connector line */}
+        {/* Connector line. Only drawn once the grid is a single four-across row,
+            so this breakpoint must stay in step with the grid's lg:grid-cols-4 above -
+            at two columns it would point off the end of a row into nothing. */}
         {!isLast && (
-          <div className="timeline-line hidden md:block absolute top-8 left-1/2 w-full h-px bg-gradient-to-r from-primary/50 to-primary/10 origin-left" />
+          <div className="timeline-line hidden lg:block absolute top-8 left-1/2 w-full h-px bg-gradient-to-r from-primary/50 to-primary/10 origin-left" />
         )}
 
         <div className="relative z-10 flex flex-col items-center text-center">

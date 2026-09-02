@@ -42,7 +42,7 @@ export function Benefits({ dict }: { dict: Dictionary }) {
           description={dict.benefits.sectionDescription}
         />
 
-        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={gridRef} className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {benefits.map((benefit, index) => (
             <BenefitCard
               key={benefit.title}
