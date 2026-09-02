@@ -1,4 +1,4 @@
-import { PlaneTakeoff, UsersRound, Send, Twitter, Linkedin, Instagram } from 'lucide-react'
+import { Rocket, UsersRound, Send, Twitter, Linkedin, Instagram } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 /**
@@ -7,11 +7,12 @@ import type { LucideIcon } from 'lucide-react'
  * both dictionaries and survives the links being reordered.
  *
  * The choices lean on the site's aviation framing - the process section runs
- * Pre-Flight Check, Take-off, Orbit - so Process gets a departing plane and
- * Contact a paper plane. Contact opens WhatsApp, hence "send" over "mail".
+ * Pre-Flight Check, Take-off, Orbit - so Process gets the rocket the site already
+ * uses for Take-off and for the custom cursor, and Contact a paper plane, which
+ * reads better than an envelope given the link opens WhatsApp.
  */
 export const companyLinkIcons: Record<string, LucideIcon> = {
-  '#process': PlaneTakeoff,
+  '#process': Rocket,
   '#team': UsersRound,
   '#contact': Send,
 }
